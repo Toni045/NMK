@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd">
+
+    <changeSet author="tserezlija" id="202304042139">
+        <createTable tableName="department">
+            <column name="id" type="INT">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="purpose" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="location" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="tserezlija" id="202304042150">
+        <createTable tableName="user">
+            <column name="id" type="INT">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(20)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="surname" type="VARCHAR(20)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="email" type="VARCHAR(20)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="department_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="tserezlija" id="202304042155">
+        <createTable tableName="timeslot">
+            <column name="id" type="INT">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="start" type="DATE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="end" type="DATE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="user_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="tserezlija" id="202304042210">
+        <createTable tableName="user_type">
+            <column name="id" type="INT">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="type_name" type="VARCHAR(20)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="user_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="202304042225" author="tserezlija">
+        <createTable tableName="reservation">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="start" type="date">
+                <constraints nullable="false"/>
+            </column>
+            <column name="end" type="date">
+                <constraints nullable="false"/>
+            </column>
+            <column name="timeslot_id" type="int">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="202304042240" author="tserezlija">
+        <createTable tableName="laboratory_report">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="date" type="date">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="user_id" type="int">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="202304042250" author="tserezlija">
+        <createTable tableName="medicine">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="description" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="start" type="date">
+                <constraints nullable="false"/>
+            </column>
+            <column name="end" type="date">
+                <constraints nullable="false"/>
+            </column>
+            <column name="user_id" type="int">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="202304042255" author="tserezlija">
+        <createTable tableName="laboratory_values">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="key" type="varchar(25)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="value" type="varchar(25)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="laboratory_report_id" type="varchar(25)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="202304042315" author="tserezlija">
+        <tagDatabase tag="0.1.0"/>
+    </changeSet>
+
+    <changeSet id="202305131605" author="tserezlija">
+        <modifyDataType tableName="laboratory_values" columnName="laboratory_report_id" newDataType="int"/>
+    </changeSet>
+
+    <changeSet id="202305131610" author="tserezlija">
+        <addForeignKeyConstraint baseTableName="user" baseColumnNames="department_id" constraintName="fk_user_department_id"
+                                 referencedTableName="department"
+                                 referencedColumnNames="id"/>
+        <addForeignKeyConstraint baseTableName="timeslot" baseColumnNames="user_id" constraintName="fk_timeslot_user_id"
+                                 referencedTableName="user"
+                                 referencedColumnNames="id"/>
+        <addForeignKeyConstraint baseTableName="user_type" baseColumnNames="user_id" constraintName="fk_user_type_user_id"
+                                 referencedTableName="user" referencedColumnNames="id"/>
+        <addForeignKeyConstraint baseTableName="reservation" baseColumnNames="timeslot_id" referencedColumnNames="id"
+                                 referencedTableName="timeslot" constraintName="reservation_timeslot_fk"/>
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="laboratory_report" referencedColumnNames="id"
+                                 referencedTableName="user" constraintName="laboratory_report_user_fk"/>
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="medicine" referencedColumnNames="id"
+                                 referencedTableName="user" constraintName="medicine_user_fk"/>
+        <addForeignKeyConstraint baseColumnNames="laboratory_report_id" baseTableName="laboratory_values" referencedColumnNames="id"
+                                 referencedTableName="laboratory_report" constraintName="laboratory_report:v_fk"/>
+    </changeSet>
+
+    <changeSet id="202305131615" author="tserezlija">
+        <modifyDataType tableName="department" columnName="purpose" newDataType="VARCHAR(500)"/>
+        <modifyDataType tableName="laboratory_report" columnName="description" newDataType="VARCHAR(500)"/>
+        <modifyDataType tableName="medicine" columnName="description" newDataType="VARCHAR(500)"/>
+    </changeSet>
+
+</databaseChangeLog>
+            

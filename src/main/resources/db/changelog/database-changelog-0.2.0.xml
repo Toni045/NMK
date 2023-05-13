@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd">
+    <changeSet id="202304042330" author="tserezlija">
+        <insert tableName="department">
+            <column name="id" value="1"></column>
+            <column name="name" value="OPD"></column>
+            <column name="purpose" value="preventive, diagnostic, curative, and rehabilitative"></column>
+            <column name="location" value="ZAGREB, Tkalčićeva 12, 3rd floor"></column>
+        </insert>
+        <insert tableName="department">
+            <column name="id" value="2"></column>
+            <column name="name" value="IP"/>
+            <column name="purpose"
+                    value="Prepare, finalize or update various corporate and departmental strategies, policies, procedures, forms and manuals"/>
+            <column name="location" value="Zagreb, Savska 25, 2nd floor"/>
+        </insert>
+        <insert tableName="department">
+            <column name="id" value="3"></column>
+            <column name="name" value="Medical Department"></column>
+            <column name="purpose" value="Counsel and educate patients and their families"></column>
+            <column name="location" value="Zagreb, Selska 2, 1st floor"></column>
+        </insert>
+    </changeSet>
+    <changeSet id="202304042340" author="tserezlija">
+        <insert tableName="user">
+            <column name="id" value="1"></column>
+            <column name="name" value="John"></column>
+            <column name="surname" value="Doe"></column>
+            <column name="email" value="johndoe@gmail.com"></column>
+            <column name="department_id" value="1"></column>
+        </insert>
+        <insert tableName="user">
+            <column name="id" value="2"></column>
+            <column name="name" value="Jane"></column>
+            <column name="surname" value="Doe"></column>
+            <column name="email" value="janedoe@gmail.com"></column>
+            <column name="department_id" value="2"></column>
+        </insert>
+        <insert tableName="user">
+            <column name="id" value="3"></column>
+            <column name="name" value="Mark"></column>
+            <column name="surname" value="Smith"></column>
+            <column name="email" value="marksmith@gmail.com"></column>
+            <column name="department_id" value="3"></column>
+        </insert>
+    </changeSet>
+    <changeSet id="202304042350" author="tserezlija">
+        <insert tableName="timeslot">
+            <column name="id" value="1"></column>
+            <column name="start" value="2023-04-05 13:00:00"></column>
+            <column name="end" value="2023-04-05 15:00:00"></column>
+            <column name="user_id" value="1"></column>
+        </insert>
+        <insert tableName="timeslot">
+            <column name="id" value="2"></column>
+            <column name="start" value="2023-04-07 09:00:00"></column>
+            <column name="end" value="2023-04-07 11:00:00"></column>
+            <column name="user_id" value="2"></column>
+        </insert>
+        <insert tableName="timeslot">
+            <column name="id" value="3"></column>
+            <column name="start" value="2023-04-09 08:30:00"></column>
+            <column name="end" value="2023-04-09 11:30:00"></column>
+            <column name="user_id" value="3"></column>
+        </insert>
+    </changeSet>
+    <changeSet id="202304042355" author="tserezlija">
+        <insert tableName="user_type">
+            <column name="id" value="1"></column>
+            <column name="type_name" value="USER"></column>
+            <column name="user_id" value="1"></column>
+        </insert>
+        <insert tableName="user_type">
+            <column name="id" value="2"></column>
+            <column name="type_name" value="ADMIN"></column>
+            <column name="user_id" value="2"></column>
+        </insert>
+        <insert tableName="user_type">
+            <column name="id" value="3"></column>
+            <column name="type_name" value="DOCTOR"></column>
+            <column name="user_id" value="3"></column>
+        </insert>
+    </changeSet>
+    <changeSet id="202304042359" author="tserezlija">
+        <insert tableName="reservation">
+            <column name="id" value="1"></column>
+            <column name="start" value="2023-04-05 13:00:00"></column>
+            <column name="end" value="2023-04-05 14:00:00"></column>
+            <column name="timeslot_id" value="1"></column>
+        </insert>
+        <insert tableName="reservation">
+            <column name="id" value="2"></column>
+            <column name="start" value="2023-04-07 09:00:00"></column>
+            <column name="end" value="2023-04-07 10:00:00"></column>
+            <column name="timeslot_id" value="2"></column>
+        </insert>
+        <insert tableName="reservation">
+            <column name="id" value="3"></column>
+            <column name="start" value="2023-04-09 09:00:00"></column>
+            <column name="end" value="2023-04-09 09:30:00"></column>
+            <column name="timeslot_id" value="3"></column>
+        </insert>
+    </changeSet>
+    <changeSet id="202304050010" author="tserezlija">
+        <insert tableName="laboratory_report">
+            <column name="id" value="1"></column>
+            <column name="date" value="2023-04-09 09:00:00"></column>
+            <column name="description"
+                    value="Blood test: The patient's blood test shows slightly elevated levels of cholesterol and triglycerides, which may indicate a risk of developing heart disease"></column>
+            <column name="user_id" value="1"></column>
+        </insert>
+        <insert tableName="laboratory_report">
+            <column name="id" value="2"></column>
+            <column name="date" value="2023-04-10 09:00:00"></column>
+            <column name="description"
+                    value="Urinalysis: The patient's urinalysis shows the presence of bacteria and white blood cells, indicating a possible urinary tract infection."></column>
+            <column name="user_id" value="2"></column>
+        </insert>
+        <insert tableName="laboratory_report">
+            <column name="id" value="3"></column>
+            <column name="date" value="2023-04-11 09:00:00"></column>
+            <column name="description"
+                    value="Stool analysis: The patient's stool analysis shows the presence of blood and mucus, which may be a sign of inflammatory bowel disease."></column>
+            <column name="user_id" value="3"></column>
+        </insert>
+    </changeSet>
+    <changeSet id="202304050025" author="tserezlija">
+        <insert tableName="laboratory_values">
+            <column name="id" value="1"></column>
+            <column name="key" value="MCV"></column>
+            <column name="value" value="81.6"></column>
+            <column name="laboratory_report_id" value="1"></column>
+        </insert>
+        <insert tableName="laboratory_values">
+            <column name="id" value="2"></column>
+            <column name="key" value="MCH"></column>
+            <column name="value" value="25.7"></column>
+            <column name="laboratory_report_id" value="1"></column>
+        </insert>
+        <insert tableName="laboratory_values">
+            <column name="id" value="3"></column>
+            <column name="key" value="MCHC"></column>
+            <column name="value" value="315"></column>
+            <column name="laboratory_report_id" value="1"></column>
+        </insert>
+        <insert tableName="laboratory_values">
+            <column name="id" value="4"></column>
+            <column name="key" value="MCV"></column>
+            <column name="value" value="83.6"></column>
+            <column name="laboratory_report_id" value="2"></column>
+        </insert>
+        <insert tableName="laboratory_values">
+            <column name="id" value="5"></column>
+            <column name="key" value="MCH"></column>
+            <column name="value" value="27.7"></column>
+            <column name="laboratory_report_id" value="2"></column>
+        </insert>
+        <insert tableName="laboratory_values">
+            <column name="id" value="6"></column>
+            <column name="key" value="MCHC"></column>
+            <column name="value" value="312"></column>
+            <column name="laboratory_report_id" value="2"></column>
+        </insert>
+        <insert tableName="laboratory_values">
+            <column name="id" value="7"></column>
+            <column name="key" value="MCV"></column>
+            <column name="value" value="80.6"></column>
+            <column name="laboratory_report_id" value="3"></column>
+        </insert>
+        <insert tableName="laboratory_values">
+            <column name="id" value="8"></column>
+            <column name="key" value="MCH"></column>
+            <column name="value" value="25.7"></column>
+            <column name="laboratory_report_id" value="3"></column>
+        </insert>
+        <insert tableName="laboratory_values">
+            <column name="id" value="9"></column>
+            <column name="key" value="MCHC"></column>
+            <column name="value" value="322"></column>
+            <column name="laboratory_report_id" value="3"></column>
+        </insert>
+    </changeSet>
+    <changeSet id="202304050111" author="tserezlija">
+        <insert tableName="medicine">
+            <column name="id" value="1"></column>
+            <column name="description" value="Analgesics"></column>
+            <column name="start" value="2023-04-11"></column>
+            <column name="end" value="2023-04-18"></column>
+            <column name="user_id" value="1"></column>
+        </insert>
+        <insert tableName="medicine">
+            <column name="id" value="2"></column>
+            <column name="description" value="Antibiotics"></column>
+            <column name="start" value="2023-04-10"></column>
+            <column name="end" value="2023-04-17"></column>
+            <column name="user_id" value="2"></column>
+        </insert>
+        <insert tableName="medicine">
+            <column name="id" value="3"></column>
+            <column name="description" value="Antidepressants"></column>
+            <column name="start" value="2023-04-09"></column>
+            <column name="end" value="2023-04-14"></column>
+            <column name="user_id" value="3"></column>
+        </insert>
+    </changeSet>
+</databaseChangeLog>
