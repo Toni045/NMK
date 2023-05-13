@@ -1,0 +1,8 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://dpg-chd6p62k728tp9f51ehg-a.frankfurt-postgres.render.com/nmk
+    username: nmk_user
+    password: uzt4cfbr5MMXdFMKrcdLyvC58jfFSIdE
+    driver-class-name: org.postgresql.Driver
+  liquibase:
+    change-log: db/master-changelog.xml
