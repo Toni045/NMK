@@ -6,3 +6,10 @@ spring:
     driver-class-name: org.postgresql.Driver
   liquibase:
     change-log: db/master-changelog.xml
+  security:
+    oauth2:
+        resourceserver:
+            jwt:
+                issuer-uri: https://dev-r4r2t64ocsg3g08e.us.auth0.com/
+auth0:
+  audience: https://dev-r4r2t64ocsg3g08e.us.auth0.com/api/v2/
