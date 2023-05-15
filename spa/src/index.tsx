@@ -1,15 +1,38 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import App from './App';
+import App from './containers/App/App';
 import reportWebVitals from './reportWebVitals';
+import configData from "./config.json"
+import { Auth0Provider } from '@auth0/auth0-react';
+import TestContextProvider from './store/ClientsContext';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
+
+const providerConfig = {
+  domain: configData.domain,
+  clientId: configData.clientId,
+  audience: configData.audience,
+  redirectUri: window.location.origin,
+  useRefreshTokens: true
+};
+
 root.render(
   <React.StrictMode>
-    <App />
+    <Auth0Provider clientId={providerConfig.clientId}
+      domain={providerConfig.domain}
+      authorizationParams={
+        {
+          audience: providerConfig.audience,
+          redirect_uri: providerConfig.redirectUri
+        }
+      }>
+      <TestContextProvider>
+        <App />
+      </TestContextProvider>
+    </Auth0Provider>
   </React.StrictMode>
 );
 
