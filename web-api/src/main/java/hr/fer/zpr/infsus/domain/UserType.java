@@ -2,13 +2,12 @@ package hr.fer.zpr.infsus.domain;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.SequenceGenerator;
+import java.util.Set;
 
 
 @Entity
@@ -31,9 +30,11 @@ public class UserType {
     @Column(nullable = false, length = 20)
     private String typeName;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+    @Column(nullable = false)
+    private Integer userId;
+
+    @OneToMany(mappedBy = "userType")
+    private Set<User> userTypeUsers;
 
     public Integer getId() {
         return id;
@@ -51,12 +52,20 @@ public class UserType {
         this.typeName = typeName;
     }
 
-    public User getUser() {
-        return user;
+    public Integer getUserId() {
+        return userId;
     }
 
-    public void setUser(final User user) {
-        this.user = user;
+    public void setUserId(final Integer userId) {
+        this.userId = userId;
+    }
+
+    public Set<User> getUserTypeUsers() {
+        return userTypeUsers;
+    }
+
+    public void setUserTypeUsers(final Set<User> userTypeUsers) {
+        this.userTypeUsers = userTypeUsers;
     }
 
 }

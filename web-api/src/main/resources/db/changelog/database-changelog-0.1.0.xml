@@ -176,5 +176,44 @@
         <modifyDataType tableName="medicine" columnName="description" newDataType="VARCHAR(500)"/>
     </changeSet>
 
+    <changeSet id="202305152222" author="MarkoTunjic">
+        <dropForeignKeyConstraint baseTableName="user_type" constraintName="fk_user_type_user_id"/>
+        <dropColumn tableName="user_type" columnName="user_id"/>
+        <addColumn tableName="user">
+            <column name="user_type_id" type="int"/>
+        </addColumn>
+        <addForeignKeyConstraint baseTableName="user" baseColumnNames="user_type_id" constraintName="fk_user_user_type_id" referencedTableName="user_type"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+
+    <changeSet id="202305152229" author="MarkoTunjic">
+        <createTable tableName="laboratory_value_name">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(25)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="202305152257" author="MarkoTunjic">
+        <modifyDataType tableName="laboratory_values" columnName="value" newDataType="decimal"/>
+        <dropColumn tableName="laboratory_values" columnName="key"/>
+        <addColumn tableName="laboratory_values">
+            <column name="laboratory_value_name_id" type="int"/>
+        </addColumn>
+        <addForeignKeyConstraint baseTableName="laboratory_values" baseColumnNames="laboratory_value_name_id" constraintName="laboratory_values_laboratory_value_name_id" referencedTableName="laboratory_value_name"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+
+    <changeSet id="202305152242" author="MarkoTunjic">
+        <addNotNullConstraint tableName="user" columnName="user_type_id"/>
+    </changeSet>
+
+    <changeSet id="202305152250" author="MarkoTunjic">
+        <addNotNullConstraint tableName="laboratory_values" columnName="laboratory_value_name_id"/>
+    </changeSet>
+
 </databaseChangeLog>
             

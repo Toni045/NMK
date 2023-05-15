@@ -35,6 +35,10 @@ public class LaboratoryValues {
     @JoinColumn(name = "laboratory_report_id", nullable = false)
     private LaboratoryReport laboratoryReport;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "laboratory_value_name_id", nullable = false)
+    private LaboratoryValueName laboratoryValueName;
+
     public Integer getId() {
         return id;
     }
@@ -57,6 +61,14 @@ public class LaboratoryValues {
 
     public void setLaboratoryReport(final LaboratoryReport laboratoryReport) {
         this.laboratoryReport = laboratoryReport;
+    }
+
+    public LaboratoryValueName getLaboratoryValueName() {
+        return laboratoryValueName;
+    }
+
+    public void setLaboratoryValueName(final LaboratoryValueName laboratoryValueName) {
+        this.laboratoryValueName = laboratoryValueName;
     }
 
 }

@@ -206,4 +206,122 @@
             <column name="user_id" value="3"></column>
         </insert>
     </changeSet>
+
+    <changeSet id="202305152346" author="MarkoTunjic">
+        <update tableName="user" >
+            <column name="user_type_id" value="1" />
+            <where>
+                id='1'
+            </where>
+        </update>
+        <update tableName="user" >
+            <column name="user_type_id" value="2" />
+            <where>
+                id='2'
+            </where>
+        </update>
+        <update tableName="user" >
+            <column name="user_type_id" value="3" />
+            <where>
+                id='3'
+            </where>
+        </update>
+    </changeSet>
+
+    <changeSet id="202305152348" author="MarkoTunjic">
+        <insert tableName="laboratory_value_name">
+            <column name="id" value="1"></column>
+            <column name="name" value="CRP"></column>
+        </insert>
+        <insert tableName="laboratory_value_name">
+            <column name="id" value="2"></column>
+            <column name="name" value="zeljezo"></column>
+        </insert>
+        <insert tableName="laboratory_value_name">
+            <column name="id" value="3"></column>
+            <column name="name" value="leukociti"></column>
+        </insert>
+        <insert tableName="laboratory_value_name">
+            <column name="id" value="4"></column>
+            <column name="name" value="ERC"></column>
+        </insert>
+        <insert tableName="laboratory_value_name">
+            <column name="id" value="5"></column>
+            <column name="name" value="HB"></column>
+        </insert>
+        <insert tableName="laboratory_value_name">
+            <column name="id" value="6"></column>
+            <column name="name" value="TRC"></column>
+        </insert>
+        <insert tableName="laboratory_value_name">
+            <column name="id" value="7"></column>
+            <column name="name" value="limfociti"></column>
+        </insert>
+        <insert tableName="laboratory_value_name">
+            <column name="id" value="8"></column>
+            <column name="name" value="monociti"></column>
+        </insert>
+        <insert tableName="laboratory_value_name">
+            <column name="id" value="9"></column>
+            <column name="name" value="K-MPV"></column>
+        </insert>
+    </changeSet>
+
+    <changeSet id="202305152349" author="MarkoTunjic">
+        <update tableName="laboratory_values">
+            <column name="laboratory_value_name_id" value="1" />
+            <where>
+                id='1'
+            </where>
+        </update>
+        <update tableName="laboratory_values">
+            <column name="laboratory_value_name_id" value="2" />
+            <where>
+                id='2'
+            </where>
+        </update>
+        <update tableName="laboratory_values">
+            <column name="laboratory_value_name_id" value="3" />
+            <where>
+                id='3'
+            </where>
+        </update>
+        <update tableName="laboratory_values">
+            <column name="laboratory_value_name_id" value="4" />
+            <where>
+                id='4'
+            </where>
+        </update>
+        <update tableName="laboratory_values">
+            <column name="laboratory_value_name_id" value="5" />
+            <where>
+                id='5'
+            </where>
+        </update>
+        <update tableName="laboratory_values">
+            <column name="laboratory_value_name_id" value="6" />
+            <where>
+                id='6'
+            </where>
+        </update>
+        <update tableName="laboratory_values">
+            <column name="laboratory_value_name_id" value="7" />
+            <where>
+                id='7'
+            </where>
+        </update>
+        <update tableName="laboratory_values">
+            <column name="laboratory_value_name_id" value="8" />
+            <where>
+                id='8'
+            </where>
+        </update>
+        <update tableName="laboratory_values">
+            <column name="laboratory_value_name_id" value="9" />
+            <where>
+                id='9'
+            </where>
+        </update>
+    </changeSet>
+
 </databaseChangeLog>

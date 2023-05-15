@@ -45,11 +45,12 @@ public class User {
     @JoinColumn(name = "department_id", nullable = false)
     private Department department;
 
-    @OneToMany(mappedBy = "user")
-    private Set<Timeslot> userTimeslots;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_type_id", nullable = false)
+    private UserType userType;
 
     @OneToMany(mappedBy = "user")
-    private Set<UserType> userUserTypes;
+    private Set<Timeslot> userTimeslots;
 
     @OneToMany(mappedBy = "user")
     private Set<LaboratoryReport> userLaboratoryReports;
@@ -97,20 +98,20 @@ public class User {
         this.department = department;
     }
 
+    public UserType getUserType() {
+        return userType;
+    }
+
+    public void setUserType(final UserType userType) {
+        this.userType = userType;
+    }
+
     public Set<Timeslot> getUserTimeslots() {
         return userTimeslots;
     }
 
     public void setUserTimeslots(final Set<Timeslot> userTimeslots) {
         this.userTimeslots = userTimeslots;
-    }
-
-    public Set<UserType> getUserUserTypes() {
-        return userUserTypes;
-    }
-
-    public void setUserUserTypes(final Set<UserType> userUserTypes) {
-        this.userUserTypes = userUserTypes;
     }
 
     public Set<LaboratoryReport> getUserLaboratoryReports() {

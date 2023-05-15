@@ -9,8 +9,9 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.SequenceGenerator;
 import java.util.Set;
 
+
 @Entity
-public class Department {
+public class LaboratoryValueName {
 
     @Id
     @Column(nullable = false, updatable = false)
@@ -26,17 +27,11 @@ public class Department {
     )
     private Integer id;
 
-    @Column(nullable = false, length = 50)
+    @Column(nullable = false, length = 25)
     private String name;
 
-    @Column(nullable = false, length = 100)
-    private String purpose;
-
-    @Column(nullable = false, length = 50)
-    private String location;
-
-    @OneToMany(mappedBy = "department")
-    private Set<User> departmentUsers;
+    @OneToMany(mappedBy = "laboratoryValueName")
+    private Set<LaboratoryValues> laboratoryValueNameLaboratoryValuess;
 
     public Integer getId() {
         return id;
@@ -54,28 +49,13 @@ public class Department {
         this.name = name;
     }
 
-    public String getPurpose() {
-        return purpose;
+    public Set<LaboratoryValues> getLaboratoryValueNameLaboratoryValuess() {
+        return laboratoryValueNameLaboratoryValuess;
     }
 
-    public void setPurpose(final String purpose) {
-        this.purpose = purpose;
-    }
-
-    public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(final String location) {
-        this.location = location;
-    }
-
-    public Set<User> getDepartmentUsers() {
-        return departmentUsers;
-    }
-
-    public void setDepartmentUsers(final Set<User> departmentUsers) {
-        this.departmentUsers = departmentUsers;
+    public void setLaboratoryValueNameLaboratoryValuess(
+            final Set<LaboratoryValues> laboratoryValueNameLaboratoryValuess) {
+        this.laboratoryValueNameLaboratoryValuess = laboratoryValueNameLaboratoryValuess;
     }
 
 }
