@@ -17,7 +17,7 @@ interface ClientsContextProviderProps {
 }
 
 function ClientsContextProvider(props: PropsWithChildren<ClientsContextProviderProps>) {
-    const { getAccessTokenSilently, isAuthenticated } = useAuth0();
+    const { getAccessTokenSilently } = useAuth0();
 
     const getAccessToken = useCallback(async (name?: string | undefined, scopes?: string[] | undefined) => {
         try {
@@ -31,7 +31,7 @@ function ClientsContextProvider(props: PropsWithChildren<ClientsContextProviderP
         } catch (error) {
             return "";
         }
-    }, [getAccessTokenSilently, isAuthenticated]);
+    }, [getAccessTokenSilently]);
 
     const contextState: ClientsContextState = useMemo(() => {
         let clients: ClientsContextState = {
