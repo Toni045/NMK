@@ -215,5 +215,9 @@
         <addNotNullConstraint tableName="laboratory_values" columnName="laboratory_value_name_id"/>
     </changeSet>
 
+    <changeSet id="202305160019" author="MarkoTunjic">
+        <dropColumn tableName="user" columnName="surname" />
+    </changeSet>
+
 </databaseChangeLog>
             

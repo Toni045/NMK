@@ -36,9 +36,6 @@ public class User {
     private String name;
 
     @Column(nullable = false, length = 20)
-    private String surname;
-
-    @Column(nullable = false, length = 20)
     private String email;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -72,14 +69,6 @@ public class User {
 
     public void setName(final String name) {
         this.name = name;
-    }
-
-    public String getSurname() {
-        return surname;
-    }
-
-    public void setSurname(final String surname) {
-        this.surname = surname;
     }
 
     public String getEmail() {
