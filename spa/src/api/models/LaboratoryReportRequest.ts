@@ -16,61 +16,49 @@ import { exists, mapValues } from '../runtime';
 /**
  * 
  * @export
- * @interface LaboratoryReportDTO
+ * @interface LaboratoryReportRequest
  */
-export interface LaboratoryReportDTO {
+export interface LaboratoryReportRequest {
     /**
      * 
      * @type {number}
-     * @memberof LaboratoryReportDTO
+     * @memberof LaboratoryReportRequest
      */
     id?: number;
     /**
      * 
      * @type {Date}
-     * @memberof LaboratoryReportDTO
+     * @memberof LaboratoryReportRequest
      */
     date?: Date;
     /**
      * 
      * @type {string}
-     * @memberof LaboratoryReportDTO
+     * @memberof LaboratoryReportRequest
      */
     description?: string;
     /**
      * 
-     * @type {string}
-     * @memberof LaboratoryReportDTO
-     */
-    userEmail?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof LaboratoryReportDTO
-     */
-    userName?: string;
-    /**
-     * 
      * @type {number}
-     * @memberof LaboratoryReportDTO
+     * @memberof LaboratoryReportRequest
      */
     userId?: number;
 }
 
 /**
- * Check if a given object implements the LaboratoryReportDTO interface.
+ * Check if a given object implements the LaboratoryReportRequest interface.
  */
-export function instanceOfLaboratoryReportDTO(value: object): boolean {
+export function instanceOfLaboratoryReportRequest(value: object): boolean {
     let isInstance = true;
 
     return isInstance;
 }
 
-export function LaboratoryReportDTOFromJSON(json: any): LaboratoryReportDTO {
-    return LaboratoryReportDTOFromJSONTyped(json, false);
+export function LaboratoryReportRequestFromJSON(json: any): LaboratoryReportRequest {
+    return LaboratoryReportRequestFromJSONTyped(json, false);
 }
 
-export function LaboratoryReportDTOFromJSONTyped(json: any, ignoreDiscriminator: boolean): LaboratoryReportDTO {
+export function LaboratoryReportRequestFromJSONTyped(json: any, ignoreDiscriminator: boolean): LaboratoryReportRequest {
     if ((json === undefined) || (json === null)) {
         return json;
     }
@@ -79,13 +67,11 @@ export function LaboratoryReportDTOFromJSONTyped(json: any, ignoreDiscriminator:
         'id': !exists(json, 'id') ? undefined : json['id'],
         'date': !exists(json, 'date') ? undefined : (new Date(json['date'])),
         'description': !exists(json, 'description') ? undefined : json['description'],
-        'userEmail': !exists(json, 'userEmail') ? undefined : json['userEmail'],
-        'userName': !exists(json, 'userName') ? undefined : json['userName'],
         'userId': !exists(json, 'userId') ? undefined : json['userId'],
     };
 }
 
-export function LaboratoryReportDTOToJSON(value?: LaboratoryReportDTO | null): any {
+export function LaboratoryReportRequestToJSON(value?: LaboratoryReportRequest | null): any {
     if (value === undefined) {
         return undefined;
     }
@@ -97,8 +83,6 @@ export function LaboratoryReportDTOToJSON(value?: LaboratoryReportDTO | null): a
         'id': value.id,
         'date': value.date === undefined ? undefined : (value.date.toISOString().substr(0,10)),
         'description': value.description,
-        'userEmail': value.userEmail,
-        'userName': value.userName,
         'userId': value.userId,
     };
 }

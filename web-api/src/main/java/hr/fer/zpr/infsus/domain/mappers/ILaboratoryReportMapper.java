@@ -11,6 +11,7 @@ import java.util.List;
 public interface ILaboratoryReportMapper {
     @Mapping(target = "userEmail", source = "user.email")
     @Mapping(target = "userName", source = "user.name")
+    @Mapping(target = "userId", source = "user.id")
     LaboratoryReportDTO laboratoryReportToLaboratoryReportDTO(LaboratoryReport laboratoryReport);
 
     List<LaboratoryReportDTO> laboratoryReportsToLaboratoryReportDTOs(List<LaboratoryReport> laboratoryReports);

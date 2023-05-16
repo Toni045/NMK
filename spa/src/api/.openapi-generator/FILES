@@ -3,5 +3,6 @@ apis/TestControllerApi.ts
 apis/index.ts
 index.ts
 models/LaboratoryReportDTO.ts
+models/LaboratoryReportRequest.ts
 models/index.ts
 runtime.ts

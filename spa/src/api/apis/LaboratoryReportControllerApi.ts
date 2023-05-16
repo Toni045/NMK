@@ -16,16 +16,89 @@
 import * as runtime from '../runtime';
 import type {
   LaboratoryReportDTO,
+  LaboratoryReportRequest,
 } from '../models';
 import {
     LaboratoryReportDTOFromJSON,
     LaboratoryReportDTOToJSON,
+    LaboratoryReportRequestFromJSON,
+    LaboratoryReportRequestToJSON,
 } from '../models';
+
+export interface CreateReportRequest {
+    laboratoryReportRequest: LaboratoryReportRequest;
+}
+
+export interface DeleteReportRequest {
+    id: number;
+}
+
+export interface UpdateReportRequest {
+    laboratoryReportRequest: LaboratoryReportRequest;
+}
 
 /**
  * 
  */
 export class LaboratoryReportControllerApi extends runtime.BaseAPI {
+
+    /**
+     */
+    async createReportRaw(requestParameters: CreateReportRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<LaboratoryReportDTO>> {
+        if (requestParameters.laboratoryReportRequest === null || requestParameters.laboratoryReportRequest === undefined) {
+            throw new runtime.RequiredError('laboratoryReportRequest','Required parameter requestParameters.laboratoryReportRequest was null or undefined when calling createReport.');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        const response = await this.request({
+            path: `/LaboratoryReport`,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: LaboratoryReportRequestToJSON(requestParameters.laboratoryReportRequest),
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => LaboratoryReportDTOFromJSON(jsonValue));
+    }
+
+    /**
+     */
+    async createReport(requestParameters: CreateReportRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<LaboratoryReportDTO> {
+        const response = await this.createReportRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     */
+    async deleteReportRaw(requestParameters: DeleteReportRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters.id === null || requestParameters.id === undefined) {
+            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling deleteReport.');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/LaboratoryReport/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
+            method: 'DELETE',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     */
+    async deleteReport(requestParameters: DeleteReportRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.deleteReportRaw(requestParameters, initOverrides);
+    }
 
     /**
      */
@@ -48,6 +121,37 @@ export class LaboratoryReportControllerApi extends runtime.BaseAPI {
      */
     async getAllReports(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<LaboratoryReportDTO>> {
         const response = await this.getAllReportsRaw(initOverrides);
+        return await response.value();
+    }
+
+    /**
+     */
+    async updateReportRaw(requestParameters: UpdateReportRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<LaboratoryReportDTO>> {
+        if (requestParameters.laboratoryReportRequest === null || requestParameters.laboratoryReportRequest === undefined) {
+            throw new runtime.RequiredError('laboratoryReportRequest','Required parameter requestParameters.laboratoryReportRequest was null or undefined when calling updateReport.');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        const response = await this.request({
+            path: `/LaboratoryReport`,
+            method: 'PUT',
+            headers: headerParameters,
+            query: queryParameters,
+            body: LaboratoryReportRequestToJSON(requestParameters.laboratoryReportRequest),
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => LaboratoryReportDTOFromJSON(jsonValue));
+    }
+
+    /**
+     */
+    async updateReport(requestParameters: UpdateReportRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<LaboratoryReportDTO> {
+        const response = await this.updateReportRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
