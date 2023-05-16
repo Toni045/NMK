@@ -1,16 +1,19 @@
 import React, { PropsWithChildren, useCallback, useMemo } from "react";
-import { Configuration, TestControllerApi } from "../api";
+import { Configuration, LaboratoryReportControllerApi, TestControllerApi } from "../api";
 import { useAuth0 } from "@auth0/auth0-react";
 import configData from "../config.json";
 
 interface ClientsContextState {
-    testClient: TestControllerApi
+    testClient: TestControllerApi,
+    laboratoryReportClient: LaboratoryReportControllerApi
 }
 
 const defaultTestClient = new TestControllerApi();
+const defaultLaboratoryReportClient = new LaboratoryReportControllerApi();
 
 export const ClientsContext = React.createContext<ClientsContextState>({
-    testClient: defaultTestClient
+    testClient: defaultTestClient,
+    laboratoryReportClient: defaultLaboratoryReportClient
 });
 
 interface ClientsContextProviderProps {
@@ -35,7 +38,8 @@ function ClientsContextProvider(props: PropsWithChildren<ClientsContextProviderP
 
     const contextState: ClientsContextState = useMemo(() => {
         let clients: ClientsContextState = {
-            testClient: new TestControllerApi(new Configuration({ accessToken: getAccessToken }))
+            testClient: new TestControllerApi(new Configuration({ accessToken: getAccessToken })),
+            laboratoryReportClient: new LaboratoryReportControllerApi(new Configuration({ accessToken: getAccessToken }))
         };
 
         return clients;
