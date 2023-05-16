@@ -1,4 +1,7 @@
+apis/LaboratoryReportControllerApi.ts
 apis/TestControllerApi.ts
 apis/index.ts
 index.ts
+models/LaboratoryReportDTO.ts
+models/index.ts
 runtime.ts

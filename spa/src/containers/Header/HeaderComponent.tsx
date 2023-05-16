@@ -35,8 +35,13 @@ function HeaderComponent(props: HeaderComponentProps) {
             <Box sx={{ display: 'flex', alignItems: 'end', textAlign: 'center', justifyContent: 'space-between', padding: "10px" }}>
                 <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
                     <Typography sx={{ minWidth: 100 }}>
-                        <Link onClick={() => navigate("/")} sx={{ ...LinkStyle, color: activeIndex === 0 ? Colors.DarkMossGreen : Colors.FernGreen }}>
+                        <Link onClick={() => navigate("/")} sx={{ ...LinkStyle, color: activeIndex === 0 ? Colors.DarkMossGreen : "black" }}>
                             Home
+                        </Link>
+                    </Typography>
+                    <Typography sx={{ minWidth: 100 }}>
+                        <Link onClick={() => navigate("/laboratoryReports")} sx={{ ...LinkStyle, color: activeIndex === 1 ? Colors.DarkMossGreen : "black" }}>
+                            Laboratory reports
                         </Link>
                     </Typography>
                 </Box>
