@@ -14,11 +14,11 @@ public class LaboratoryValues {
     @Column(nullable = false, length = 25)
     private String value;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "laboratory_report_id", nullable = false)
     private LaboratoryReport laboratoryReport;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "laboratory_value_name_id", nullable = false)
     private LaboratoryValueName laboratoryValueName;
 

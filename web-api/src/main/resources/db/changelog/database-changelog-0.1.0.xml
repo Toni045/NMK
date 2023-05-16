@@ -253,5 +253,12 @@
         <modifyDataType tableName="user" columnName="email" newDataType="VARCHAR(500)"/>
         <modifyDataType tableName="user" columnName="name" newDataType="VARCHAR(500)"/>
     </changeSet>
+    <changeSet id="202305160344" author="MarkoTunjic">
+        <dropUniqueConstraint tableName="user" constraintName="user_email_key"/>
+    </changeSet>
+
+    <changeSet id="202305160359" author="MarkoTunjic">
+        <addUniqueConstraint tableName="user" columnNames="email"/>
+    </changeSet>
 </databaseChangeLog>
             

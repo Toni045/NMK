@@ -33,7 +33,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         if (user.isEmpty()) {
             UserType ut = userTypeRepository.findByTypeName(EUserType.USER.name()).get();
             User newUser = new User(principal.getClaimAsString(Constants.USERNAME_CLAIM), principal.getClaimAsString(Constants.EMAIL_CLAIM), ut);
-            userRepository.saveAndFlush(newUser);
+            userRepository.save(newUser);
             return new UserDetailsImpl(newUser);
         }
         return new UserDetailsImpl(user.get());

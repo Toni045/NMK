@@ -2,6 +2,7 @@ package hr.fer.zpr.infsus.domain;
 
 import jakarta.persistence.*;
 
+import java.util.Objects;
 import java.util.Set;
 
 
@@ -20,11 +21,11 @@ public class User {
     @Column(nullable = false, length = 500, unique = true)
     private String email;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "department_id")
     private Department department;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "user_type_id", nullable = false)
     private UserType userType;
 
@@ -100,6 +101,19 @@ public class User {
 
     public void setUserLaboratoryReports(final Set<LaboratoryReport> userLaboratoryReports) {
         this.userLaboratoryReports = userLaboratoryReports;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return Objects.equals(id, user.id) && Objects.equals(email, user.email);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(email);
     }
 
     public Set<Medicine> getUserMedicines() {
