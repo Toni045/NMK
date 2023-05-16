@@ -152,13 +152,15 @@
     </changeSet>
 
     <changeSet id="202305131610" author="tserezlija">
-        <addForeignKeyConstraint baseTableName="user" baseColumnNames="department_id" constraintName="fk_user_department_id"
+        <addForeignKeyConstraint baseTableName="user" baseColumnNames="department_id"
+                                 constraintName="fk_user_department_id"
                                  referencedTableName="department"
                                  referencedColumnNames="id"/>
         <addForeignKeyConstraint baseTableName="timeslot" baseColumnNames="user_id" constraintName="fk_timeslot_user_id"
                                  referencedTableName="user"
                                  referencedColumnNames="id"/>
-        <addForeignKeyConstraint baseTableName="user_type" baseColumnNames="user_id" constraintName="fk_user_type_user_id"
+        <addForeignKeyConstraint baseTableName="user_type" baseColumnNames="user_id"
+                                 constraintName="fk_user_type_user_id"
                                  referencedTableName="user" referencedColumnNames="id"/>
         <addForeignKeyConstraint baseTableName="reservation" baseColumnNames="timeslot_id" referencedColumnNames="id"
                                  referencedTableName="timeslot" constraintName="reservation_timeslot_fk"/>
@@ -166,7 +168,8 @@
                                  referencedTableName="user" constraintName="laboratory_report_user_fk"/>
         <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="medicine" referencedColumnNames="id"
                                  referencedTableName="user" constraintName="medicine_user_fk"/>
-        <addForeignKeyConstraint baseColumnNames="laboratory_report_id" baseTableName="laboratory_values" referencedColumnNames="id"
+        <addForeignKeyConstraint baseColumnNames="laboratory_report_id" baseTableName="laboratory_values"
+                                 referencedColumnNames="id"
                                  referencedTableName="laboratory_report" constraintName="laboratory_report:v_fk"/>
     </changeSet>
 
@@ -182,7 +185,8 @@
         <addColumn tableName="user">
             <column name="user_type_id" type="int"/>
         </addColumn>
-        <addForeignKeyConstraint baseTableName="user" baseColumnNames="user_type_id" constraintName="fk_user_user_type_id" referencedTableName="user_type"
+        <addForeignKeyConstraint baseTableName="user" baseColumnNames="user_type_id"
+                                 constraintName="fk_user_user_type_id" referencedTableName="user_type"
                                  referencedColumnNames="id"/>
     </changeSet>
 
@@ -203,7 +207,9 @@
         <addColumn tableName="laboratory_values">
             <column name="laboratory_value_name_id" type="int"/>
         </addColumn>
-        <addForeignKeyConstraint baseTableName="laboratory_values" baseColumnNames="laboratory_value_name_id" constraintName="laboratory_values_laboratory_value_name_id" referencedTableName="laboratory_value_name"
+        <addForeignKeyConstraint baseTableName="laboratory_values" baseColumnNames="laboratory_value_name_id"
+                                 constraintName="laboratory_values_laboratory_value_name_id"
+                                 referencedTableName="laboratory_value_name"
                                  referencedColumnNames="id"/>
     </changeSet>
 
@@ -216,8 +222,36 @@
     </changeSet>
 
     <changeSet id="202305160019" author="MarkoTunjic">
-        <dropColumn tableName="user" columnName="surname" />
+        <dropColumn tableName="user" columnName="surname"/>
     </changeSet>
 
+    <changeSet id="202305160045" author="MarkoTunjic">
+        <addUniqueConstraint tableName="user" columnNames="email"/>
+    </changeSet>
+
+    <changeSet id="202305160104" author="MarkoTunjic">
+        <dropNotNullConstraint tableName="user" columnName="department_id"/>
+    </changeSet>
+
+    <changeSet id="202305160106" author="MarkoTunjic">
+        <addUniqueConstraint tableName="user_type" columnNames="type_name"/>
+    </changeSet>
+
+    <changeSet id="202305160210" author="MarkoTunjic">
+        <modifyDataType tableName="department" columnName="id" newDataType="serial"/>
+        <modifyDataType tableName="laboratory_report" columnName="id" newDataType="serial"/>
+        <modifyDataType tableName="laboratory_values" columnName="id" newDataType="serial"/>
+        <modifyDataType tableName="laboratory_value_name" columnName="id" newDataType="serial"/>
+        <modifyDataType tableName="medicine" columnName="id" newDataType="serial"/>
+        <modifyDataType tableName="reservation" columnName="id" newDataType="serial"/>
+        <modifyDataType tableName="timeslot" columnName="id" newDataType="serial"/>
+        <modifyDataType tableName="user" columnName="id" newDataType="serial"/>
+        <modifyDataType tableName="user_type" columnName="id" newDataType="serial"/>
+    </changeSet>
+
+    <changeSet id="202305160256" author="MarkoTunjic">
+        <modifyDataType tableName="user" columnName="email" newDataType="VARCHAR(500)"/>
+        <modifyDataType tableName="user" columnName="name" newDataType="VARCHAR(500)"/>
+    </changeSet>
 </databaseChangeLog>
             

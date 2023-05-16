@@ -1,12 +1,7 @@
 package hr.fer.zpr.infsus.domain;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.SequenceGenerator;
+import jakarta.persistence.*;
+
 import java.util.Set;
 
 
@@ -15,23 +10,14 @@ public class UserType {
 
     @Id
     @Column(nullable = false, updatable = false)
-    @SequenceGenerator(
-            name = "primary_sequence",
-            sequenceName = "primary_sequence",
-            allocationSize = 1,
-            initialValue = 10000
-    )
-    @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "primary_sequence"
-    )
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    @Column(nullable = false, length = 20)
+    @Column(nullable = false, length = 20, unique = true)
     private String typeName;
 
-    @Column(nullable = false)
-    private Integer userId;
+    public UserType() {
+    }
 
     @OneToMany(mappedBy = "userType")
     private Set<User> userTypeUsers;
@@ -50,14 +36,6 @@ public class UserType {
 
     public void setTypeName(final String typeName) {
         this.typeName = typeName;
-    }
-
-    public Integer getUserId() {
-        return userId;
-    }
-
-    public void setUserId(final Integer userId) {
-        this.userId = userId;
     }
 
     public Set<User> getUserTypeUsers() {

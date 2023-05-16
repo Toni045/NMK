@@ -1,4 +1,4 @@
-package hr.fer.zpr.infsus.auth;
+package hr.fer.zpr.infsus.application.auth;
 
 import org.springframework.security.oauth2.core.OAuth2Error;
 import org.springframework.security.oauth2.core.OAuth2TokenValidator;
