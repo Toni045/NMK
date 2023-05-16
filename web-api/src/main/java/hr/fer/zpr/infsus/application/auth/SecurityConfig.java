@@ -56,8 +56,7 @@ public class SecurityConfig {
 
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.authorizeHttpRequests().anyRequest().permitAll()
-                .and().cors(withDefaults()).oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt);
+        http.authorizeHttpRequests().anyRequest().permitAll().and().csrf().disable().cors(withDefaults()).oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt);
         return http.build();
     }
 }
