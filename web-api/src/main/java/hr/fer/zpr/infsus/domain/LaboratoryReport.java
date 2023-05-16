@@ -17,7 +17,7 @@ public class LaboratoryReport {
     @Column(nullable = false)
     private LocalDate date;
 
-    @Column(nullable = false, length = 100)
+    @Column(nullable = false, length = 500)
     private String description;
 
     @ManyToOne

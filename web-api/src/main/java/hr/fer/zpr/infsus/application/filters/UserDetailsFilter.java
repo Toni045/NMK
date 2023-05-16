@@ -24,6 +24,10 @@ public class UserDetailsFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+        if (SecurityContextHolder.getContext().getAuthentication().getPrincipal().equals("anonymousUser")) {
+            filterChain.doFilter(request, response);
+            return;
+        }
         try {
             Jwt principal = (Jwt) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             UserDetails userDetails = userDetailsService.loadUserByUsername(principal.getClaimAsString(Constants.EMAIL_CLAIM));

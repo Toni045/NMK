@@ -15,7 +15,7 @@ public class Department {
     @Column(nullable = false, length = 50)
     private String name;
 
-    @Column(nullable = false, length = 100)
+    @Column(nullable = false, length = 500)
     private String purpose;
 
     @Column(nullable = false, length = 50)
