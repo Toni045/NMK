@@ -13,4 +13,6 @@ public interface ILaboratoryReportService {
     LaboratoryReportDTO createLaboratoryReport(LaboratoryReportRequest updateRequest);
 
     void deleteLaboratoryReport(int id);
+
+    List<LaboratoryReportDTO> getAllReportsForUser(int userId);
 }

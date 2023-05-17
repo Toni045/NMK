@@ -46,4 +46,13 @@ public class LaboratoryReportController {
         laboratoryReportService.deleteLaboratoryReport(id);
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/{userId}")
+    public ResponseEntity<List<LaboratoryReportDTO>> getAllReportsForUser(@PathVariable int userId) {
+        List<LaboratoryReportDTO> result=laboratoryReportService.getAllReportsForUser(userId);
+        if(result==null){
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(result);
+    }
 }

@@ -1,5 +1,5 @@
-import { Box, Button, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField } from "@mui/material";
-import { LaboratoryReportDTO, LaboratoryReportRequest } from "../../api";
+import { Box, Button, FormControl, InputLabel, MenuItem, Paper, Select, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField } from "@mui/material";
+import { LaboratoryReportDTO, LaboratoryReportRequest, UserDropdownDTO } from "../../api";
 import { useCallback } from "react";
 import Colors from "../../colors.json"
 
@@ -7,6 +7,7 @@ interface LaboratoryReportTableComponentProps {
     laboratoryReports: Array<LaboratoryReportDTO>,
     newLaboratoryReport: LaboratoryReportRequest | undefined,
     currentEditingIndex: number | undefined,
+    userDropdown: Array<UserDropdownDTO>,
     onChange: (request: LaboratoryReportRequest) => void,
     submit: () => void,
     delete: (id: number) => void,
@@ -15,6 +16,23 @@ interface LaboratoryReportTableComponentProps {
 }
 
 function LaboratoryReportTableComponent(props: LaboratoryReportTableComponentProps) {
+    const getUserDropdown = useCallback((onChange: (event: any) => void) => {
+        return <FormControl fullWidth>
+            <InputLabel id="user_id_label">User id</InputLabel>
+            <Select
+                labelId="user_id_label"
+                id="user_id_select"
+                value={props.newLaboratoryReport?.userId}
+                label="User id"
+                onChange={onChange}
+            >
+                <MenuItem value={undefined}>empty</MenuItem>
+                {props.userDropdown.map((user) => {
+                    return <MenuItem value={user.id}>{user.email}</MenuItem>
+                })}
+            </Select>
+        </FormControl>
+    }, [props.newLaboratoryReport?.userId, props.userDropdown]);
     const getNewRow = useCallback(
         (update: boolean) => {
             if (props.newLaboratoryReport === undefined) {
@@ -49,14 +67,7 @@ function LaboratoryReportTableComponent(props: LaboratoryReportTableComponentPro
                             sx={{ marginRight: "5px" }} />
                     </TableCell>
                     <TableCell>
-                        <TextField
-                            id="user_id"
-                            label="User id"
-                            variant="outlined"
-                            type="number"
-                            value={props.newLaboratoryReport.userId}
-                            onChange={(event: any) => props.onChange({ ...props.newLaboratoryReport, userId: event.target.value })}
-                            sx={{ marginRight: "5px" }} />
+                        {getUserDropdown((event: any) => props.onChange({ ...props.newLaboratoryReport, userId: event.target.value }))}
                     </TableCell>
                     <TableCell />
                     <TableCell>
@@ -72,7 +83,7 @@ function LaboratoryReportTableComponent(props: LaboratoryReportTableComponentPro
                 </TableRow>
             )
         },
-        [props]);
+        [props, getUserDropdown]);
 
     const getRows = useCallback(
         () => {
@@ -116,24 +127,26 @@ function LaboratoryReportTableComponent(props: LaboratoryReportTableComponentPro
 
 
 
-    return (<TableContainer component={Paper} sx={{ width: "65%", marginTop: "10px" }}>
-        <Table aria-label="simple table">
-            <TableHead>
-                <TableRow>
-                    <TableCell>Id</TableCell>
-                    <TableCell>Date</TableCell>
-                    <TableCell>Description</TableCell>
-                    <TableCell>email</TableCell>
-                    <TableCell>name</TableCell>
-                    <TableCell>actions</TableCell>
-                </TableRow>
-            </TableHead>
-            <TableBody>
-                {getRows()}
-                {getNewRow(false)}
-            </TableBody>
-        </Table>
-    </TableContainer>);
+    return (
+        <TableContainer component={Paper} sx={{ width: "65%", marginTop: "10px" }}>
+            <Table aria-label="simple table">
+                <TableHead>
+                    <TableRow>
+                        <TableCell>Id</TableCell>
+                        <TableCell>Date</TableCell>
+                        <TableCell>Description</TableCell>
+                        <TableCell>email</TableCell>
+                        <TableCell>name</TableCell>
+                        <TableCell>actions</TableCell>
+                    </TableRow>
+                </TableHead>
+                <TableBody>
+                    {getRows()}
+                    {getNewRow(false)}
+                </TableBody>
+            </Table>
+        </TableContainer>
+    );
 }
 
 export default LaboratoryReportTableComponent;

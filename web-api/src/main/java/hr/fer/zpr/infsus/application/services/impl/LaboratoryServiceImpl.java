@@ -77,4 +77,13 @@ public class LaboratoryServiceImpl implements ILaboratoryReportService {
     public void deleteLaboratoryReport(int id) {
         laboratoryReportRepository.deleteById(id);
     }
+
+    @Override
+    public List<LaboratoryReportDTO> getAllReportsForUser(int userId) {
+        Optional<User> user=userRepository.findById(userId);
+        if(user.isEmpty()) {
+            return null;
+        }
+        return laboratoryReportMapper.laboratoryReportsToLaboratoryReportDTOs(laboratoryReportRepository.findByUser(user.get()));
+    }
 }

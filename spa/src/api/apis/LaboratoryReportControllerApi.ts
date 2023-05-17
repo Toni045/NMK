@@ -33,6 +33,10 @@ export interface DeleteReportRequest {
     id: number;
 }
 
+export interface GetAllReportsForUserRequest {
+    userId: number;
+}
+
 export interface UpdateReportRequest {
     laboratoryReportRequest: LaboratoryReportRequest;
 }
@@ -121,6 +125,34 @@ export class LaboratoryReportControllerApi extends runtime.BaseAPI {
      */
     async getAllReports(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<LaboratoryReportDTO>> {
         const response = await this.getAllReportsRaw(initOverrides);
+        return await response.value();
+    }
+
+    /**
+     */
+    async getAllReportsForUserRaw(requestParameters: GetAllReportsForUserRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<LaboratoryReportDTO>>> {
+        if (requestParameters.userId === null || requestParameters.userId === undefined) {
+            throw new runtime.RequiredError('userId','Required parameter requestParameters.userId was null or undefined when calling getAllReportsForUser.');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/LaboratoryReport/{userId}`.replace(`{${"userId"}}`, encodeURIComponent(String(requestParameters.userId))),
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(LaboratoryReportDTOFromJSON));
+    }
+
+    /**
+     */
+    async getAllReportsForUser(requestParameters: GetAllReportsForUserRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<LaboratoryReportDTO>> {
+        const response = await this.getAllReportsForUserRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

@@ -1,15 +1,16 @@
 import { useContext, useEffect, useState } from "react";
-import { LaboratoryReportDTO, LaboratoryReportRequest } from "../../api";
+import { LaboratoryReportDTO, LaboratoryReportRequest, UserDropdownDTO } from "../../api";
 import { ClientsContext } from "../../store/ClientsContext";
 import LaboratoryReportTableComponent from "./LaboratoryReportTableComponent";
-import { Box, Button } from "@mui/material";
+import { Box, Button, FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 
 function LaboratoryReportTableState() {
     const [laboratoryReports, setLaboratoryReports] = useState<Array<LaboratoryReportDTO>>([]);
+    const [userDropdown, setUserDropdown] = useState<Array<UserDropdownDTO>>([]);
     const [newRow, setNewRow] = useState<LaboratoryReportRequest | undefined>();
     const [isNewRow, setIsNewRow] = useState<boolean>(false);
     const [currentEditingIndex, setCurrentEditingIndex] = useState<number | undefined>(undefined);
-    const { laboratoryReportClient } = useContext(ClientsContext);
+    const { laboratoryReportClient, userClient } = useContext(ClientsContext);
 
     function onUpdate(index: number) {
         setCurrentEditingIndex(index);
@@ -27,10 +28,14 @@ function LaboratoryReportTableState() {
         setCurrentEditingIndex(undefined);
     }
 
-    async function deleteRow(index: number) {
-        await laboratoryReportClient.deleteReport({ id: index });
-        laboratoryReports.splice(index, 1);
-        setLaboratoryReports([...laboratoryReports]);
+    async function deleteRow(id: number) {
+        await laboratoryReportClient.deleteReport({ id: id });
+        var values: Array<LaboratoryReportDTO> = [];
+        laboratoryReports.forEach(elem => {
+            if (elem.id !== id)
+                values.push(elem);
+        });
+        setLaboratoryReports([...values]);
     }
 
     async function submitNewRow() {
@@ -44,19 +49,44 @@ function LaboratoryReportTableState() {
         setLaboratoryReports([...laboratoryReports]);
     }
 
-    async function getLaboratoryReports() {
+    async function getParams() {
         setLaboratoryReports(await laboratoryReportClient.getAllReports());
+        setUserDropdown(await userClient.getUsersAsDropdown());
+    }
+
+    async function search(filter: number | undefined) {
+        if (filter === undefined) {
+            setLaboratoryReports(await laboratoryReportClient.getAllReports());
+            return;
+        }
+        setLaboratoryReports(await laboratoryReportClient.getAllReportsForUser({ userId: filter }));
     }
 
     useEffect(() => {
-        getLaboratoryReports();
-    });
+        getParams();
+    }, []);
 
     return <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+        <FormControl fullWidth>
+            <InputLabel id="user_id_label">User id</InputLabel>
+            <Select
+                labelId="user_id_label"
+                id="user_id_select"
+                value={newRow?.userId}
+                label="User id"
+                onChange={(event) => search(event.target.value as number | undefined)}
+            >
+                <MenuItem value={undefined}>empty</MenuItem>
+                {userDropdown.map((user) => {
+                    return <MenuItem value={user.id}>{user.email}</MenuItem>
+                })}
+            </Select>
+        </FormControl>
         <LaboratoryReportTableComponent
             laboratoryReports={laboratoryReports}
             currentEditingIndex={currentEditingIndex}
             newLaboratoryReport={newRow}
+            userDropdown={userDropdown}
             onChange={setNewRow}
             submit={submitNewRow}
             delete={deleteRow}
