@@ -4,6 +4,7 @@ import { ClientsContext } from "../../store/ClientsContext";
 import LaboratoryReportTableComponent from "./LaboratoryReportTableComponent";
 import { Box, Button, FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import { UserContext } from "../../store/UserContext";
 
 function LaboratoryReportTableState() {
     const [laboratoryReports, setLaboratoryReports] = useState<Array<LaboratoryReportDTO>>([]);
@@ -12,6 +13,8 @@ function LaboratoryReportTableState() {
     const [isNewRow, setIsNewRow] = useState<boolean>(false);
     const [currentEditingIndex, setCurrentEditingIndex] = useState<number | undefined>(undefined);
     const { laboratoryReportClient, userClient } = useContext(ClientsContext);
+    const { user } = useContext(UserContext);
+
     const navigate = useNavigate();
     function onUpdate(index: number) {
         setCurrentEditingIndex(index);
@@ -51,8 +54,15 @@ function LaboratoryReportTableState() {
     }
 
     async function getParams() {
-        setLaboratoryReports(await laboratoryReportClient.getAllReports());
-        setUserDropdown(await userClient.getUsersAsDropdown());
+        if (user === undefined) {
+            return;
+        }
+        if (user?.userType !== "USER") {
+            setLaboratoryReports(await laboratoryReportClient.getAllReports());
+            setUserDropdown(await userClient.getUsersAsDropdown());
+        } else {
+            setLaboratoryReports(await laboratoryReportClient.getMyReports());
+        }
     }
 
     async function search(filter: number | undefined) {
@@ -72,7 +82,9 @@ function LaboratoryReportTableState() {
     }, []);
 
     return <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-        <FormControl fullWidth>
+        {user?.userType !== "USER" ? <h1>All patients and their reports</h1> : <h1>My reports</h1>}
+
+        {user?.userType !== "USER" ? <FormControl fullWidth>
             <InputLabel id="user_id_label">User id</InputLabel>
             <Select
                 labelId="user_id_label"
@@ -85,7 +97,7 @@ function LaboratoryReportTableState() {
                     return <MenuItem value={user.id}>{user.email}</MenuItem>
                 })}
             </Select>
-        </FormControl>
+        </FormControl> : <></>}
         <LaboratoryReportTableComponent
             laboratoryReports={laboratoryReports}
             currentEditingIndex={currentEditingIndex}
@@ -97,13 +109,13 @@ function LaboratoryReportTableState() {
             onUpdate={onUpdate}
             cancel={cancel}
             onRowClick={onRowClick} />
-        <Button variant="contained" onClick={() => {
+        {user?.userType !== "USER" ? <Button variant="contained" onClick={() => {
             if (isNewRow) {
                 return;
             }
             setIsNewRow(true);
             setNewRow({});
-        }} sx={{ marginTop: "10px" }}>Add new row</Button>
+        }} sx={{ marginTop: "10px" }}>Add new row</Button> : <></>}
     </Box>
 }
 

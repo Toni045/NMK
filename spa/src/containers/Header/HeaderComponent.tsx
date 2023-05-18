@@ -1,9 +1,10 @@
 import { Box, Link, Typography } from "@mui/material";
-import React, { useCallback } from "react";
+import React, { useCallback, useContext } from "react";
 import { useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import Colors from "../../colors.json";
 import { Header, LinkStyle } from "./Header.styles";
+import { useAuth0 } from "@auth0/auth0-react";
 
 interface HeaderComponentProps {
     isLoggedIn: boolean;
@@ -14,6 +15,7 @@ function HeaderComponent(props: HeaderComponentProps) {
     const isLoggedIn = useMemo(() => props.isLoggedIn, [props.isLoggedIn]);
     const activeIndex = useMemo(() => props.activeIndex, [props.activeIndex]);
     const navigate = useNavigate();
+    const { isAuthenticated } = useAuth0();
 
     const getLoginOrLogout = useCallback((): JSX.Element => {
         if (isLoggedIn) {
@@ -39,16 +41,16 @@ function HeaderComponent(props: HeaderComponentProps) {
                             Home
                         </Link>
                     </Typography>
-                    <Typography sx={{ minWidth: 100 }}>
+                    {isAuthenticated ? < Typography sx={{ minWidth: 100 }}>
                         <Link onClick={() => navigate("/laboratoryReports")} sx={{ ...LinkStyle, color: activeIndex === 1 ? Colors.DarkMossGreen : "black" }}>
                             Laboratory reports
                         </Link>
-                    </Typography>
-                    <Typography sx={{ marginLeft: "10px", minWidth: 100 }}>
+                    </Typography> : <></>}
+                    {isAuthenticated ? <Typography sx={{ marginLeft: "10px", minWidth: 100 }}>
                         <Link onClick={() => navigate("/laboratoryReports")} sx={{ ...LinkStyle, color: activeIndex === 2 ? Colors.DarkMossGreen : "black" }}>
                             Laboratory values
                         </Link>
-                    </Typography>
+                    </Typography> : <></>}
                 </Box>
                 <Typography sx={{ minWidth: 100 }}>
                     {

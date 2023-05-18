@@ -1,7 +1,8 @@
 import { Box, Button, FormControl, InputLabel, MenuItem, Paper, Select, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField, Typography } from "@mui/material";
 import { LaboratoryReportDTO, LaboratoryValueDTO, LaboratoryValueNameDropdownDTO, LaboratoryValueRequest, UserDropdownDTO } from "../../api";
-import { useCallback, useMemo } from "react";
+import { useCallback, useContext, useMemo } from "react";
 import Colors from "../../colors.json";
+import { UserContext } from "../../store/UserContext";
 
 interface LaboratoryValuesTableComponentProps {
     laboratoryValues: Array<LaboratoryValueDTO>,
@@ -17,6 +18,7 @@ interface LaboratoryValuesTableComponentProps {
 }
 
 function LaboratoryValuesTableComponent(props: LaboratoryValuesTableComponentProps) {
+    const { user } = useContext(UserContext);
     const laboratoryReport = useMemo(() => props.laboratoryReport, [props.laboratoryReport]);
 
     const getUserDropdown = useCallback((onChange: (event: any) => void) => {
@@ -65,7 +67,7 @@ function LaboratoryValuesTableComponent(props: LaboratoryValuesTableComponentPro
                             onChange={(event: any) => props.onChange({ ...props.newLaboratoryValue, value: event.target.value })}
                             sx={{ marginRight: "5px" }} />
                     </TableCell>
-                    <TableCell>
+                    {user?.userType !== "USER" ? <TableCell>
                         <Box sx={{ display: "flex", flexDirection: "row" }}>
                             <Button variant="contained" onClick={() => {
                                 props.submit();
@@ -74,7 +76,7 @@ function LaboratoryValuesTableComponent(props: LaboratoryValuesTableComponentPro
                                 props.cancel();
                             }} sx={{ backgroundColor: "orange" }}>Cancel</Button>
                         </Box>
-                    </TableCell>
+                    </TableCell> : <></>}
                 </TableRow>
             )
         },
@@ -99,7 +101,7 @@ function LaboratoryValuesTableComponent(props: LaboratoryValuesTableComponentPro
                     <TableCell>
                         {row.value}
                     </TableCell>
-                    <TableCell>
+                    {user?.userType !== "USER" ? <TableCell>
                         <Box sx={{ display: "flex", flexDirection: "row" }}>
                             <Button variant="contained" onClick={() => {
                                 props.delete(row.id!);
@@ -108,7 +110,7 @@ function LaboratoryValuesTableComponent(props: LaboratoryValuesTableComponentPro
                                 props.onUpdate(index);
                             }} sx={{ backgroundColor: Colors.FernGreen }}>Update</Button>
                         </Box>
-                    </TableCell>
+                    </TableCell> : <></>}
                 </TableRow>
             })
         },
@@ -135,12 +137,12 @@ function LaboratoryValuesTableComponent(props: LaboratoryValuesTableComponentPro
                         <TableCell>Id</TableCell>
                         <TableCell>Laboratory value</TableCell>
                         <TableCell>Value</TableCell>
-                        <TableCell>Actions</TableCell>
+                        {user?.userType !== "USER" ? <TableCell>Actions</TableCell> : <></>}
                     </TableRow>
                 </TableHead>
                 <TableBody>
                     {getRows()}
-                    {getNewRow(false)}
+                    {user?.userType !== "USER" ? getNewRow(false) : <></>}
                 </TableBody>
             </Table>
         </TableContainer>

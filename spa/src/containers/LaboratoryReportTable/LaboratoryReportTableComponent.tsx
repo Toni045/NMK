@@ -1,8 +1,9 @@
 import { Box, Button, FormControl, InputLabel, MenuItem, Paper, Select, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField } from "@mui/material";
 import { LaboratoryReportDTO, LaboratoryReportRequest, UserDropdownDTO } from "../../api";
-import { useCallback } from "react";
+import { useCallback, useContext } from "react";
 import Colors from "../../colors.json"
 import { TableRowStyle } from "./LaboratoryReportTable.styles";
+import { UserContext } from "../../store/UserContext";
 
 interface LaboratoryReportTableComponentProps {
     laboratoryReports: Array<LaboratoryReportDTO>,
@@ -18,6 +19,8 @@ interface LaboratoryReportTableComponentProps {
 }
 
 function LaboratoryReportTableComponent(props: LaboratoryReportTableComponentProps) {
+    const { user } = useContext(UserContext);
+
     const getUserDropdown = useCallback((onChange: (event: any) => void) => {
         return <FormControl fullWidth>
             <InputLabel id="user_id_label">User id</InputLabel>
@@ -113,16 +116,17 @@ function LaboratoryReportTableComponent(props: LaboratoryReportTableComponentPro
                     <TableCell>
                         {row.userName}
                     </TableCell>
-                    <TableCell>
-                        <Box sx={{ display: "flex", flexDirection: "row" }}>
-                            <Button variant="contained" onClick={() => {
-                                props.delete(row.id!);
-                            }} sx={{ backgroundColor: "red" }}>Delete</Button>
-                            <Button variant="contained" onClick={() => {
-                                props.onUpdate(index);
-                            }} sx={{ backgroundColor: Colors.FernGreen }}>Update</Button>
-                        </Box>
-                    </TableCell>
+                    {user?.userType !== "USER" ?
+                        <TableCell>
+                            <Box sx={{ display: "flex", flexDirection: "row" }}>
+                                <Button variant="contained" onClick={() => {
+                                    props.delete(row.id!);
+                                }} sx={{ backgroundColor: "red" }}>Delete</Button>
+                                <Button variant="contained" onClick={() => {
+                                    props.onUpdate(index);
+                                }} sx={{ backgroundColor: Colors.FernGreen }}>Update</Button>
+                            </Box>
+                        </TableCell> : <></>}
                 </TableRow>
             })
         },
@@ -140,12 +144,12 @@ function LaboratoryReportTableComponent(props: LaboratoryReportTableComponentPro
                         <TableCell>Description</TableCell>
                         <TableCell>email</TableCell>
                         <TableCell>name</TableCell>
-                        <TableCell>actions</TableCell>
+                        {user?.userType !== "USER" ? <TableCell>actions</TableCell> : <></>}
                     </TableRow>
                 </TableHead>
                 <TableBody>
                     {getRows()}
-                    {getNewRow(false)}
+                    {user?.userType !== "USER" ? getNewRow(false) : <></>}
                 </TableBody>
             </Table>
         </TableContainer>

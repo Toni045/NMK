@@ -4,6 +4,7 @@ import { ClientsContext } from "../../store/ClientsContext";
 import LaboratoryReportTableComponent from "./LaboratoryValuesTableComponent";
 import { Box, Button, FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import { useParams } from "react-router-dom";
+import { UserContext } from "../../store/UserContext";
 
 interface LaboratoryValuesTableStateProps {
     laboratoryReportId: number
@@ -17,6 +18,7 @@ function LaboratoryReportTableState(props: LaboratoryValuesTableStateProps) {
     const [currentEditingIndex, setCurrentEditingIndex] = useState<number | undefined>(undefined);
     const [laboratoryReport, setLaboratoryReport] = useState<LaboratoryReportDTO | undefined>(undefined);
     const { laboratoryValueClient, laboratoryValueNameClient, laboratoryReportClient } = useContext(ClientsContext);
+    const { user } = useContext(UserContext);
     const laboratoryReportId = useMemo(() => props.laboratoryReportId, [props.laboratoryReportId]);
 
     function onUpdate(index: number) {
@@ -97,13 +99,13 @@ function LaboratoryReportTableState(props: LaboratoryValuesTableStateProps) {
             delete={deleteRow}
             onUpdate={onUpdate}
             cancel={cancel} />
-        <Button variant="contained" onClick={() => {
+        {user?.userType !== "USER" ? <Button variant="contained" onClick={() => {
             if (isNewRow) {
                 return;
             }
             setIsNewRow(true);
             setNewRow({});
-        }} sx={{ marginTop: "10px" }}>Add new row</Button>
+        }} sx={{ marginTop: "10px" }}>Add new row</Button> : <></>}
     </Box>
 }
 

@@ -17,4 +17,6 @@ public interface ILaboratoryReportService {
     List<LaboratoryReportDTO> getAllReportsForUser(int userId);
 
     LaboratoryReportDTO getReportById(Integer id);
+
+    List<LaboratoryReportDTO> getMyReports();
 }
