@@ -15,9 +15,12 @@
 
 import * as runtime from '../runtime';
 import type {
+  UserDTO,
   UserDropdownDTO,
 } from '../models';
 import {
+    UserDTOFromJSON,
+    UserDTOToJSON,
     UserDropdownDTOFromJSON,
     UserDropdownDTOToJSON,
 } from '../models';
@@ -26,6 +29,38 @@ import {
  * 
  */
 export class UserControllerApi extends runtime.BaseAPI {
+
+    /**
+     */
+    async getCurrentUserRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<UserDTO>> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("BearerAuthentication", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        const response = await this.request({
+            path: `/User/current`,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => UserDTOFromJSON(jsonValue));
+    }
+
+    /**
+     */
+    async getCurrentUser(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<UserDTO> {
+        const response = await this.getCurrentUserRaw(initOverrides);
+        return await response.value();
+    }
 
     /**
      */

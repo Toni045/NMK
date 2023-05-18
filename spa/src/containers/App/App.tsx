@@ -6,14 +6,34 @@ import Anonymus from '../../pages/Anonymus';
 import Authenticated from '../../pages/Authenticated';
 import { useAuth0 } from '@auth0/auth0-react';
 import { CircularProgress } from '@mui/material';
-import { useCallback } from 'react';
+import { useCallback, useContext, useEffect } from 'react';
 import HomePage from '../../pages/Home';
 import LaboratoryReports from '../../pages/LaboratoryReports';
 import Colors from "../../colors.json";
 import LaboratoryValues from '../../pages/LaboratoryValues';
+import { UserContext } from '../../store/UserContext';
+import { ClientsContext } from '../../store/ClientsContext';
+import { UserDTO } from '../../api';
 
 function App() {
-  const { isLoading } = useAuth0();
+  const { isLoading, isAuthenticated } = useAuth0();
+  const { setUser } = useContext(UserContext);
+  const { userClient } = useContext(ClientsContext);
+
+  async function managePrincipal() {
+    if (isAuthenticated) {
+      var user: UserDTO = await userClient.getCurrentUser();
+      console.log(user);
+      setUser(user);
+    } else {
+      setUser(undefined);
+    }
+  }
+
+  useEffect(() => {
+    managePrincipal();
+  }, [isAuthenticated])
+
   const getBody = useCallback((): JSX.Element => {
     if (isLoading) {
       return <CircularProgress />

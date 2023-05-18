@@ -5,4 +5,5 @@ export * from './LaboratoryReportRequest';
 export * from './LaboratoryValueDTO';
 export * from './LaboratoryValueNameDropdownDTO';
 export * from './LaboratoryValueRequest';
+export * from './UserDTO';
 export * from './UserDropdownDTO';

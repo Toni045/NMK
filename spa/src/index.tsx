@@ -6,6 +6,8 @@ import reportWebVitals from './reportWebVitals';
 import configData from "./config.json"
 import { Auth0Provider } from '@auth0/auth0-react';
 import TestContextProvider from './store/ClientsContext';
+import ClientsContextProvider from './store/ClientsContext';
+import UserContextProvider from './store/UserContext';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -30,7 +32,11 @@ root.render(
         }
       }>
       <TestContextProvider>
-        <App />
+        <ClientsContextProvider>
+          <UserContextProvider>
+            <App />
+          </UserContextProvider>
+        </ClientsContextProvider>
       </TestContextProvider>
     </Auth0Provider>
   </React.StrictMode>

@@ -10,6 +10,7 @@ models/LaboratoryReportRequest.ts
 models/LaboratoryValueDTO.ts
 models/LaboratoryValueNameDropdownDTO.ts
 models/LaboratoryValueRequest.ts
+models/UserDTO.ts
 models/UserDropdownDTO.ts
 models/index.ts
 runtime.ts
