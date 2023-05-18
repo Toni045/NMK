@@ -6,4 +6,10 @@ import java.util.List;
 
 public interface ILaboratoryValueNameService {
     List<LaboratoryValueNameDropdownDTO> getLaboratoryValueNameDropdown();
+
+    LaboratoryValueNameDropdownDTO updateLaboratoryValueName(Integer id, String laboratoryValueName);
+
+    void deleteLaboratoryValueName(Integer id);
+
+    LaboratoryValueNameDropdownDTO createLaboratoryValueName(String name);
 }
