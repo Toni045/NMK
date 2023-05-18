@@ -1,6 +1,6 @@
 package hr.fer.zpr.infsus.domain.mappers;
 
-import hr.fer.zpr.infsus.domain.LaboratoryReport;
+import hr.fer.zpr.infsus.domain.JPAEntities.LaboratoryReport;
 import hr.fer.zpr.infsus.domain.dto.LaboratoryReportDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

@@ -1,10 +1,10 @@
 package hr.fer.zpr.infsus.application.services.impl;
 
 import hr.fer.zpr.infsus.application.Constants;
-import hr.fer.zpr.infsus.domain.EUserType;
-import hr.fer.zpr.infsus.domain.User;
-import hr.fer.zpr.infsus.domain.UserDetailsImpl;
-import hr.fer.zpr.infsus.domain.UserType;
+import hr.fer.zpr.infsus.domain.JPAEntities.EUserType;
+import hr.fer.zpr.infsus.domain.JPAEntities.User;
+import hr.fer.zpr.infsus.domain.JPAEntities.UserDetailsImpl;
+import hr.fer.zpr.infsus.domain.JPAEntities.UserType;
 import hr.fer.zpr.infsus.infrastructure.UserRepository;
 import hr.fer.zpr.infsus.infrastructure.UserTypeRepository;
 import org.springframework.security.core.context.SecurityContextHolder;

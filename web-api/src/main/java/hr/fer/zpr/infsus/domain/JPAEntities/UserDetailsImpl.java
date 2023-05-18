@@ -1,4 +1,4 @@
-package hr.fer.zpr.infsus.domain;
+package hr.fer.zpr.infsus.domain.JPAEntities;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

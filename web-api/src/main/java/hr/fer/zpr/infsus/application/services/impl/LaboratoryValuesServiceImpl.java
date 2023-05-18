@@ -1,9 +1,9 @@
 package hr.fer.zpr.infsus.application.services.impl;
 
 import hr.fer.zpr.infsus.application.services.ILaboratoryValuesService;
-import hr.fer.zpr.infsus.domain.LaboratoryReport;
-import hr.fer.zpr.infsus.domain.LaboratoryValueName;
-import hr.fer.zpr.infsus.domain.LaboratoryValues;
+import hr.fer.zpr.infsus.domain.JPAEntities.LaboratoryReport;
+import hr.fer.zpr.infsus.domain.JPAEntities.LaboratoryValueName;
+import hr.fer.zpr.infsus.domain.JPAEntities.LaboratoryValues;
 import hr.fer.zpr.infsus.domain.dto.LaboratoryValueDTO;
 import hr.fer.zpr.infsus.domain.mappers.ILaboratoryValueMapper;
 import hr.fer.zpr.infsus.domain.request.LaboratoryValueRequest;

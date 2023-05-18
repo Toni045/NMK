@@ -1,4 +1,4 @@
-package hr.fer.zpr.infsus.domain;
+package hr.fer.zpr.infsus.domain.JPAEntities;
 
 import jakarta.persistence.*;
 
@@ -6,12 +6,15 @@ import java.time.LocalDate;
 
 
 @Entity
-public class Reservation {
+public class Medicine {
 
     @Id
     @Column(nullable = false, updatable = false)
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
+
+    @Column(nullable = false, length = 100)
+    private String description;
 
     @Column(nullable = false)
     private LocalDate start;
@@ -20,10 +23,10 @@ public class Reservation {
     private LocalDate end;
 
     @ManyToOne
-    @JoinColumn(name = "timeslot_id", nullable = false)
-    private Timeslot timeslot;
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 
-    public Reservation() {
+    public Medicine() {
     }
 
     public Integer getId() {
@@ -32,6 +35,14 @@ public class Reservation {
 
     public void setId(final Integer id) {
         this.id = id;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(final String description) {
+        this.description = description;
     }
 
     public LocalDate getStart() {
@@ -50,12 +61,12 @@ public class Reservation {
         this.end = end;
     }
 
-    public Timeslot getTimeslot() {
-        return timeslot;
+    public User getUser() {
+        return user;
     }
 
-    public void setTimeslot(final Timeslot timeslot) {
-        this.timeslot = timeslot;
+    public void setUser(final User user) {
+        this.user = user;
     }
 
 }

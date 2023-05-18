@@ -1,9 +1,5 @@
 package hr.fer.zpr.infsus.domain.dto;
 
-import hr.fer.zpr.infsus.domain.LaboratoryReport;
-import hr.fer.zpr.infsus.domain.LaboratoryValueName;
-import jakarta.persistence.*;
-
 public class LaboratoryValueDTO {
     private Integer id;
 

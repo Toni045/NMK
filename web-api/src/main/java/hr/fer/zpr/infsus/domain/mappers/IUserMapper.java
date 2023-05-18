@@ -1,6 +1,6 @@
 package hr.fer.zpr.infsus.domain.mappers;
 
-import hr.fer.zpr.infsus.domain.User;
+import hr.fer.zpr.infsus.domain.JPAEntities.User;
 import hr.fer.zpr.infsus.domain.dto.UserDropdownDTO;
 import org.mapstruct.Mapper;
 

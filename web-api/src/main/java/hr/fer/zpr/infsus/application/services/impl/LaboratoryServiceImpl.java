@@ -1,8 +1,8 @@
 package hr.fer.zpr.infsus.application.services.impl;
 
 import hr.fer.zpr.infsus.application.services.ILaboratoryReportService;
-import hr.fer.zpr.infsus.domain.LaboratoryReport;
-import hr.fer.zpr.infsus.domain.User;
+import hr.fer.zpr.infsus.domain.JPAEntities.LaboratoryReport;
+import hr.fer.zpr.infsus.domain.JPAEntities.User;
 import hr.fer.zpr.infsus.domain.dto.LaboratoryReportDTO;
 import hr.fer.zpr.infsus.domain.mappers.ILaboratoryReportMapper;
 import hr.fer.zpr.infsus.domain.request.LaboratoryReportRequest;

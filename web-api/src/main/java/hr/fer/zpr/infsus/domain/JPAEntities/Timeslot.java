@@ -1,20 +1,18 @@
-package hr.fer.zpr.infsus.domain;
+package hr.fer.zpr.infsus.domain.JPAEntities;
 
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.util.Set;
 
 
 @Entity
-public class Medicine {
+public class Timeslot {
 
     @Id
     @Column(nullable = false, updatable = false)
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-
-    @Column(nullable = false, length = 100)
-    private String description;
 
     @Column(nullable = false)
     private LocalDate start;
@@ -26,8 +24,11 @@ public class Medicine {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    public Medicine() {
+    public Timeslot() {
     }
+
+    @OneToMany(mappedBy = "timeslot")
+    private Set<Reservation> timeslotReservations;
 
     public Integer getId() {
         return id;
@@ -35,14 +36,6 @@ public class Medicine {
 
     public void setId(final Integer id) {
         this.id = id;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(final String description) {
-        this.description = description;
     }
 
     public LocalDate getStart() {
@@ -67,6 +60,14 @@ public class Medicine {
 
     public void setUser(final User user) {
         this.user = user;
+    }
+
+    public Set<Reservation> getTimeslotReservations() {
+        return timeslotReservations;
+    }
+
+    public void setTimeslotReservations(final Set<Reservation> timeslotReservations) {
+        this.timeslotReservations = timeslotReservations;
     }
 
 }
