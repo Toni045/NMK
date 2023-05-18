@@ -7,7 +7,7 @@ import jakarta.persistence.*;
 public class LaboratoryValueDTO {
     private Integer id;
 
-    private String value;
+    private Double value;
 
     private Integer laboratoryReportId;
 
@@ -25,11 +25,11 @@ public class LaboratoryValueDTO {
         this.id = id;
     }
 
-    public String getValue() {
+    public Double getValue() {
         return value;
     }
 
-    public void setValue(String value) {
+    public void setValue(Double value) {
         this.value = value;
     }
 

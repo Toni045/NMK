@@ -11,8 +11,8 @@ public class LaboratoryValues {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    @Column(nullable = false, length = 25)
-    private String value;
+    @Column(nullable = false)
+    private Double value;
 
     @ManyToOne
     @JoinColumn(name = "laboratory_report_id", nullable = false)
@@ -33,11 +33,11 @@ public class LaboratoryValues {
         this.id = id;
     }
 
-    public String getValue() {
+    public Double getValue() {
         return value;
     }
 
-    public void setValue(final String value) {
+    public void setValue(final Double value) {
         this.value = value;
     }
 
