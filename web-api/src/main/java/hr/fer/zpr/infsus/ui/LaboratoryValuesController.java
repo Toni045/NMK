@@ -46,4 +46,9 @@ public class LaboratoryValuesController {
         }
         return ResponseEntity.ok(result);
     }
+
+    @GetMapping("/{laboratoryReportId}/{laboratoryValueNameId}")
+    public ResponseEntity<List<LaboratoryValueDTO>> getAllLaboratoryValuesForLaboratoryReportWithName(@PathVariable Integer laboratoryReportId,@PathVariable Integer laboratoryValueNameId) {
+        return ResponseEntity.ok(laboratoryValuesService.getAllLaboratoryValuesForLaboratoryReportWithName(laboratoryReportId,laboratoryValueNameId));
+    }
 }

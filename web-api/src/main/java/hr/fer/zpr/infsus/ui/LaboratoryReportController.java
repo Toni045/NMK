@@ -23,6 +23,15 @@ public class LaboratoryReportController {
         return ResponseEntity.ok(laboratoryReportService.getAllReports());
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<LaboratoryReportDTO> getReportById(@PathVariable Integer id) {
+        LaboratoryReportDTO result=laboratoryReportService.getReportById(id);
+        if(result==null){
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(result);
+    }
+
     @PutMapping
     public ResponseEntity<LaboratoryReportDTO> updateReport(@RequestBody LaboratoryReportRequest updateRequest) {
         LaboratoryReportDTO result = laboratoryReportService.updateLaboratoryReport(updateRequest);
@@ -47,7 +56,7 @@ public class LaboratoryReportController {
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping("/{userId}")
+    @GetMapping("/user/{userId}")
     public ResponseEntity<List<LaboratoryReportDTO>> getAllReportsForUser(@PathVariable int userId) {
         List<LaboratoryReportDTO> result=laboratoryReportService.getAllReportsForUser(userId);
         if(result==null){

@@ -86,4 +86,13 @@ public class LaboratoryServiceImpl implements ILaboratoryReportService {
         }
         return laboratoryReportMapper.laboratoryReportsToLaboratoryReportDTOs(laboratoryReportRepository.findByUser(user.get()));
     }
+
+    @Override
+    public LaboratoryReportDTO getReportById(Integer id) {
+        Optional<LaboratoryReport> optionalLaboratoryReport=laboratoryReportRepository.findById(id);
+        if(optionalLaboratoryReport.isEmpty()){
+            return null;
+        }
+        return laboratoryReportMapper.laboratoryReportToLaboratoryReportDTO(optionalLaboratoryReport.get());
+    }
 }

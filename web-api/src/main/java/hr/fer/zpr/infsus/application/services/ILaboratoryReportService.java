@@ -15,4 +15,6 @@ public interface ILaboratoryReportService {
     void deleteLaboratoryReport(int id);
 
     List<LaboratoryReportDTO> getAllReportsForUser(int userId);
+
+    LaboratoryReportDTO getReportById(Integer id);
 }

@@ -44,6 +44,11 @@ function HeaderComponent(props: HeaderComponentProps) {
                             Laboratory reports
                         </Link>
                     </Typography>
+                    <Typography sx={{ marginLeft: "10px", minWidth: 100 }}>
+                        <Link onClick={() => navigate("/laboratoryReports")} sx={{ ...LinkStyle, color: activeIndex === 2 ? Colors.DarkMossGreen : "black" }}>
+                            Laboratory values
+                        </Link>
+                    </Typography>
                 </Box>
                 <Typography sx={{ minWidth: 100 }}>
                     {

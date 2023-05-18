@@ -3,6 +3,7 @@ import { LaboratoryReportDTO, LaboratoryReportRequest, UserDropdownDTO } from ".
 import { ClientsContext } from "../../store/ClientsContext";
 import LaboratoryReportTableComponent from "./LaboratoryReportTableComponent";
 import { Box, Button, FormControl, InputLabel, MenuItem, Select } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 function LaboratoryReportTableState() {
     const [laboratoryReports, setLaboratoryReports] = useState<Array<LaboratoryReportDTO>>([]);
@@ -11,7 +12,7 @@ function LaboratoryReportTableState() {
     const [isNewRow, setIsNewRow] = useState<boolean>(false);
     const [currentEditingIndex, setCurrentEditingIndex] = useState<number | undefined>(undefined);
     const { laboratoryReportClient, userClient } = useContext(ClientsContext);
-
+    const navigate = useNavigate();
     function onUpdate(index: number) {
         setCurrentEditingIndex(index);
         setNewRow({
@@ -62,6 +63,10 @@ function LaboratoryReportTableState() {
         setLaboratoryReports(await laboratoryReportClient.getAllReportsForUser({ userId: filter }));
     }
 
+    function onRowClick(index: number) {
+        navigate("/laboratoryValues/" + laboratoryReports[index].id);
+    }
+
     useEffect(() => {
         getParams();
     }, []);
@@ -72,7 +77,6 @@ function LaboratoryReportTableState() {
             <Select
                 labelId="user_id_label"
                 id="user_id_select"
-                value={newRow?.userId}
                 label="User id"
                 onChange={(event) => search(event.target.value as number | undefined)}
             >
@@ -91,7 +95,8 @@ function LaboratoryReportTableState() {
             submit={submitNewRow}
             delete={deleteRow}
             onUpdate={onUpdate}
-            cancel={cancel} />
+            cancel={cancel}
+            onRowClick={onRowClick} />
         <Button variant="contained" onClick={() => {
             if (isNewRow) {
                 return;

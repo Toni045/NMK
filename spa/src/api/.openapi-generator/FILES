@@ -1,10 +1,15 @@
 apis/LaboratoryReportControllerApi.ts
+apis/LaboratoryValueNameControllerApi.ts
+apis/LaboratoryValuesControllerApi.ts
 apis/TestControllerApi.ts
 apis/UserControllerApi.ts
 apis/index.ts
 index.ts
 models/LaboratoryReportDTO.ts
 models/LaboratoryReportRequest.ts
+models/LaboratoryValueDTO.ts
+models/LaboratoryValueNameDropdownDTO.ts
+models/LaboratoryValueRequest.ts
 models/UserDropdownDTO.ts
 models/index.ts
 runtime.ts

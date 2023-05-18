@@ -10,6 +10,7 @@ import { useCallback } from 'react';
 import HomePage from '../../pages/Home';
 import LaboratoryReports from '../../pages/LaboratoryReports';
 import Colors from "../../colors.json";
+import LaboratoryValues from '../../pages/LaboratoryValues';
 
 function App() {
   const { isLoading } = useAuth0();
@@ -19,6 +20,7 @@ function App() {
     }
     return <BrowserRouter>
       <Routes>
+        <Route path="/laboratoryValues/:laboratoryReportId" element={<LaboratoryValues />} />
         <Route path="/laboratoryReports" element={<LaboratoryReports />} />
         <Route path="/authenticated" element={<Authenticated />} />
         <Route path="/anonymus" element={<Anonymus />} />

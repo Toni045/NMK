@@ -79,4 +79,9 @@ public class LaboratoryValuesServiceImpl implements ILaboratoryValuesService {
         laboratoryValue.setLaboratoryValueName(optionalLaboratoryValueName.get());
         return laboratoryValueMapper.laboratoryValueToLaboratoryValueDTO(laboratoryValuesRepository.save(laboratoryValue));
     }
+
+    @Override
+    public List<LaboratoryValueDTO> getAllLaboratoryValuesForLaboratoryReportWithName(Integer laboratoryReportId, Integer laboratoryValueNameId) {
+        return laboratoryValueMapper.laboratoryValuesToLaboratoryValueDTOs(laboratoryValuesRepository.findByLaboratoryReport_IdAndLaboratoryValueName_Id(laboratoryReportId, laboratoryValueNameId));
+    }
 }

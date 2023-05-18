@@ -11,6 +11,10 @@ function HeaderState() {
     useEffect(() => {
         if (location.pathname === "/" || location.pathname === "") {
             setActiveIndex(0);
+        } else if (location.pathname.toLowerCase().includes("laboratoryreports")) {
+            setActiveIndex(1);
+        } else if (location.pathname.toLowerCase().includes("laboratoryvalues")) {
+            setActiveIndex(2);
         }
     }, [location]);
     return (<HeaderComponent activeIndex={activeIndex} isLoggedIn={isAuthenticated} />)

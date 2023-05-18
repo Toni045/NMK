@@ -13,4 +13,6 @@ public interface ILaboratoryValuesService {
     LaboratoryValueDTO updateLaboratoryValue(Integer id, LaboratoryValueRequest request);
 
     LaboratoryValueDTO createNewLaboratoryValue(Integer laboratoryReportId, LaboratoryValueRequest request);
+
+    List<LaboratoryValueDTO> getAllLaboratoryValuesForLaboratoryReportWithName(Integer laboratoryReportId, Integer laboratoryValueNameId);
 }

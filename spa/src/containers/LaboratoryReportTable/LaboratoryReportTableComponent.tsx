@@ -2,6 +2,7 @@ import { Box, Button, FormControl, InputLabel, MenuItem, Paper, Select, Table, T
 import { LaboratoryReportDTO, LaboratoryReportRequest, UserDropdownDTO } from "../../api";
 import { useCallback } from "react";
 import Colors from "../../colors.json"
+import { TableRowStyle } from "./LaboratoryReportTable.styles";
 
 interface LaboratoryReportTableComponentProps {
     laboratoryReports: Array<LaboratoryReportDTO>,
@@ -12,7 +13,8 @@ interface LaboratoryReportTableComponentProps {
     submit: () => void,
     delete: (id: number) => void,
     onUpdate: (index: number) => void,
-    cancel: () => void
+    cancel: () => void,
+    onRowClick: (index: number) => void
 }
 
 function LaboratoryReportTableComponent(props: LaboratoryReportTableComponentProps) {
@@ -92,8 +94,9 @@ function LaboratoryReportTableComponent(props: LaboratoryReportTableComponentPro
                     return getNewRow(true);
                 }
                 return <TableRow
+                    onClick={() => props.onRowClick(index)}
                     key={row.id}
-                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                    sx={{ ...TableRowStyle, '&:last-child td, &:last-child th': { border: 0 } }}
                 >
                     <TableCell component="th" scope="row">
                         {row.id}

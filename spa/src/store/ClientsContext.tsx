@@ -1,22 +1,29 @@
 import React, { PropsWithChildren, useCallback, useMemo } from "react";
-import { Configuration, LaboratoryReportControllerApi, TestControllerApi, UserControllerApi } from "../api";
+import { Configuration, LaboratoryReportControllerApi, LaboratoryValueNameControllerApi, LaboratoryValuesControllerApi, TestControllerApi, UserControllerApi } from "../api";
 import { useAuth0 } from "@auth0/auth0-react";
 import configData from "../config.json";
 
 interface ClientsContextState {
     testClient: TestControllerApi,
     laboratoryReportClient: LaboratoryReportControllerApi,
-    userClient: UserControllerApi
+    userClient: UserControllerApi,
+    laboratoryValueClient: LaboratoryValuesControllerApi,
+    laboratoryValueNameClient: LaboratoryValueNameControllerApi
 }
 
 const defaultTestClient = new TestControllerApi();
 const defaultLaboratoryReportClient = new LaboratoryReportControllerApi();
 const defaultUserClient = new UserControllerApi();
+const defaultLaboratoryValueClient = new LaboratoryValuesControllerApi();
+const defaultLaboratoryValueNameClient = new LaboratoryValueNameControllerApi();
+
 
 export const ClientsContext = React.createContext<ClientsContextState>({
     testClient: defaultTestClient,
     laboratoryReportClient: defaultLaboratoryReportClient,
-    userClient: defaultUserClient
+    userClient: defaultUserClient,
+    laboratoryValueClient: defaultLaboratoryValueClient,
+    laboratoryValueNameClient: defaultLaboratoryValueNameClient
 });
 
 interface ClientsContextProviderProps {
@@ -43,7 +50,9 @@ function ClientsContextProvider(props: PropsWithChildren<ClientsContextProviderP
         let clients: ClientsContextState = {
             testClient: new TestControllerApi(new Configuration({ accessToken: getAccessToken })),
             laboratoryReportClient: new LaboratoryReportControllerApi(new Configuration({ accessToken: getAccessToken })),
-            userClient: new UserControllerApi(new Configuration({ accessToken: getAccessToken }))
+            userClient: new UserControllerApi(new Configuration({ accessToken: getAccessToken })),
+            laboratoryValueClient: new LaboratoryValuesControllerApi(new Configuration({ accessToken: getAccessToken })),
+            laboratoryValueNameClient: new LaboratoryValueNameControllerApi(new Configuration({ accessToken: getAccessToken }))
         };
 
         return clients;
