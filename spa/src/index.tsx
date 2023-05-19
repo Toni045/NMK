@@ -5,7 +5,6 @@ import App from './containers/App/App';
 import reportWebVitals from './reportWebVitals';
 import configData from "./config.json"
 import { Auth0Provider } from '@auth0/auth0-react';
-import TestContextProvider from './store/ClientsContext';
 import ClientsContextProvider from './store/ClientsContext';
 import UserContextProvider from './store/UserContext';
 
@@ -31,13 +30,11 @@ root.render(
           redirect_uri: providerConfig.redirectUri
         }
       }>
-      <TestContextProvider>
-        <ClientsContextProvider>
-          <UserContextProvider>
-            <App />
-          </UserContextProvider>
-        </ClientsContextProvider>
-      </TestContextProvider>
+      <ClientsContextProvider>
+        <UserContextProvider>
+          <App />
+        </UserContextProvider>
+      </ClientsContextProvider>
     </Auth0Provider>
   </React.StrictMode>
 );

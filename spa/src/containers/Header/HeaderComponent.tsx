@@ -57,6 +57,11 @@ function HeaderComponent(props: HeaderComponentProps) {
                             Users
                         </Link>
                     </Typography> : <></>}
+                    {isAuthenticated && user?.userType !== "USER" ? <Typography sx={{ marginLeft: "10px", minWidth: 100 }}>
+                        <Link onClick={() => navigate("/laboratoryValueNames")} sx={{ ...LinkStyle, color: activeIndex === 4 ? Colors.DarkMossGreen : "black" }}>
+                            Laboratory value names
+                        </Link>
+                    </Typography> : <></>}
                 </Box>
                 <Typography sx={{ minWidth: 100 }}>
                     {

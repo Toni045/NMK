@@ -2,8 +2,6 @@ import './App.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Login from '../../pages/Login';
 import Logout from '../../pages/Logout';
-import Anonymus from '../../pages/Anonymus';
-import Authenticated from '../../pages/Authenticated';
 import { useAuth0 } from '@auth0/auth0-react';
 import { CircularProgress } from '@mui/material';
 import { useCallback, useContext, useEffect } from 'react';
@@ -15,6 +13,7 @@ import { UserContext } from '../../store/UserContext';
 import { ClientsContext } from '../../store/ClientsContext';
 import { UserDTO } from '../../api';
 import Users from '../../pages/Users';
+import LaboratoryValueNames from '../../pages/LaboratoryValueNames';
 
 function App() {
   const { isLoading, isAuthenticated } = useAuth0();
@@ -41,11 +40,10 @@ function App() {
     }
     return <BrowserRouter>
       <Routes>
+        <Route path="/laboratoryValueNames" element={<LaboratoryValueNames />} />
         <Route path="/users" element={<Users />} />
         <Route path="/laboratoryValues/:laboratoryReportId" element={<LaboratoryValues />} />
         <Route path="/laboratoryReports" element={<LaboratoryReports />} />
-        <Route path="/authenticated" element={<Authenticated />} />
-        <Route path="/anonymus" element={<Anonymus />} />
         <Route path="/login" element={<Login />} />
         <Route path="/logout" element={<Logout />} />
         <Route path="/" element={<HomePage />} />

@@ -4,7 +4,6 @@ import { useAuth0 } from "@auth0/auth0-react";
 import configData from "../config.json";
 
 interface ClientsContextState {
-    testClient: TestControllerApi,
     laboratoryReportClient: LaboratoryReportControllerApi,
     userClient: UserControllerApi,
     laboratoryValueClient: LaboratoryValuesControllerApi,
@@ -19,7 +18,6 @@ const defaultLaboratoryValueNameClient = new LaboratoryValueNameControllerApi();
 
 
 export const ClientsContext = React.createContext<ClientsContextState>({
-    testClient: defaultTestClient,
     laboratoryReportClient: defaultLaboratoryReportClient,
     userClient: defaultUserClient,
     laboratoryValueClient: defaultLaboratoryValueClient,
@@ -48,7 +46,6 @@ function ClientsContextProvider(props: PropsWithChildren<ClientsContextProviderP
 
     const contextState: ClientsContextState = useMemo(() => {
         let clients: ClientsContextState = {
-            testClient: new TestControllerApi(new Configuration({ accessToken: getAccessToken })),
             laboratoryReportClient: new LaboratoryReportControllerApi(new Configuration({ accessToken: getAccessToken })),
             userClient: new UserControllerApi(new Configuration({ accessToken: getAccessToken })),
             laboratoryValueClient: new LaboratoryValuesControllerApi(new Configuration({ accessToken: getAccessToken })),

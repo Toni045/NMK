@@ -41,6 +41,7 @@ function UsersTableComponent(props: UsersTableComponentProps) {
                                 label="User type"
                                 variant="outlined"
                                 type="number"
+                                value={props.newUserType}
                                 onChange={(event) => props.onChange(event.target.value !== undefined ? Number.parseInt(event.target.value) : undefined)}
                                 sx={{ marginRight: "5px" }} />}
                     </TableCell>
