@@ -1,5 +1,5 @@
 import React, { PropsWithChildren, useCallback, useMemo } from "react";
-import { Configuration, LaboratoryReportControllerApi, LaboratoryValueNameControllerApi, LaboratoryValuesControllerApi, TestControllerApi, UserControllerApi } from "../api";
+import { Configuration, LaboratoryReportControllerApi, LaboratoryValueNameControllerApi, LaboratoryValuesControllerApi, UserControllerApi } from "../api";
 import { useAuth0 } from "@auth0/auth0-react";
 import configData from "../config.json";
 
@@ -10,7 +10,6 @@ interface ClientsContextState {
     laboratoryValueNameClient: LaboratoryValueNameControllerApi
 }
 
-const defaultTestClient = new TestControllerApi();
 const defaultLaboratoryReportClient = new LaboratoryReportControllerApi();
 const defaultUserClient = new UserControllerApi();
 const defaultLaboratoryValueClient = new LaboratoryValuesControllerApi();
