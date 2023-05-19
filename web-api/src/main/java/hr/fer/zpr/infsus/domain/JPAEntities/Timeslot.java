@@ -24,11 +24,11 @@ public class Timeslot {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
+    @OneToMany(mappedBy = "timeslot", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, orphanRemoval = true)
+    private Set<Reservation> timeslotReservations;
+
     public Timeslot() {
     }
-
-    @OneToMany(mappedBy = "timeslot")
-    private Set<Reservation> timeslotReservations;
 
     public Integer getId() {
         return id;

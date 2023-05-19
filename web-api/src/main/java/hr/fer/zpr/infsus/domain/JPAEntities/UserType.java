@@ -16,11 +16,11 @@ public class UserType {
     @Column(nullable = false, length = 20, unique = true)
     private String typeName;
 
+    @OneToMany(mappedBy = "userType", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, orphanRemoval = true)
+    private Set<User> userTypeUsers;
+
     public UserType() {
     }
-
-    @OneToMany(mappedBy = "userType")
-    private Set<User> userTypeUsers;
 
     public Integer getId() {
         return id;

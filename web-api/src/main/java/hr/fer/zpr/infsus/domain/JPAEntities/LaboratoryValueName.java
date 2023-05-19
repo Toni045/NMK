@@ -16,7 +16,7 @@ public class LaboratoryValueName {
     @Column(nullable = false, length = 25)
     private String name;
 
-    @OneToMany(mappedBy = "laboratoryValueName")
+    @OneToMany(mappedBy = "laboratoryValueName", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, orphanRemoval = true)
     private Set<LaboratoryValues> laboratoryValueNameLaboratoryValuess;
 
     public LaboratoryValueName() {

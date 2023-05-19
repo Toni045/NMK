@@ -24,7 +24,7 @@ public class Department {
     public Department() {
     }
 
-    @OneToMany(mappedBy = "department")
+    @OneToMany(mappedBy = "department", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, orphanRemoval = true)
     private Set<User> departmentUsers;
 
     public Integer getId() {

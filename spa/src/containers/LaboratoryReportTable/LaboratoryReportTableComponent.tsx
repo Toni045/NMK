@@ -97,23 +97,22 @@ function LaboratoryReportTableComponent(props: LaboratoryReportTableComponentPro
                     return getNewRow(true);
                 }
                 return <TableRow
-                    onClick={() => props.onRowClick(index)}
                     key={row.id}
                     sx={{ ...TableRowStyle, '&:last-child td, &:last-child th': { border: 0 } }}
                 >
-                    <TableCell component="th" scope="row">
+                    <TableCell component="th" scope="row" onClick={() => props.onRowClick(index)}>
                         {row.id}
                     </TableCell>
-                    <TableCell>
+                    <TableCell onClick={() => props.onRowClick(index)}>
                         {row.date?.toDateString()}
                     </TableCell>
-                    <TableCell>
+                    <TableCell onClick={() => props.onRowClick(index)}>
                         {row.description}
                     </TableCell>
-                    <TableCell>
+                    <TableCell onClick={() => props.onRowClick(index)}>
                         {row.userEmail}
                     </TableCell>
-                    <TableCell>
+                    <TableCell onClick={() => props.onRowClick(index)}>
                         {row.userName}
                     </TableCell>
                     {user?.userType !== "USER" ?

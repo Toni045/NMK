@@ -23,12 +23,12 @@ public class LaboratoryReport {
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
+    
+    @OneToMany(mappedBy = "laboratoryReport", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, orphanRemoval = true)
+    private Set<LaboratoryValues> laboratoryReportLaboratoryValuess;
 
     public LaboratoryReport() {
     }
-
-    @OneToMany(mappedBy = "laboratoryReport")
-    private Set<LaboratoryValues> laboratoryReportLaboratoryValuess;
 
     public Integer getId() {
         return id;
