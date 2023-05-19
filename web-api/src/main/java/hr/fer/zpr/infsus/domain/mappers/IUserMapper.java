@@ -13,6 +13,7 @@ public interface IUserMapper {
     UserDropdownDTO userToUserDropdownDTO(User user);
     List<UserDropdownDTO> userToUserDropdownDTO(List<User> user);
     @Mapping(target = "userType", source = "userType.typeName")
+    @Mapping(target = "userTypeId", source = "userType.id")
     UserDTO userToUserDTO(User user);
     List<UserDTO> usersToUserDTOs(List<User> user);
 }

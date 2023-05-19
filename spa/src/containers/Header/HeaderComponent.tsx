@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import Colors from "../../colors.json";
 import { Header, LinkStyle } from "./Header.styles";
 import { useAuth0 } from "@auth0/auth0-react";
+import { UserContext } from "../../store/UserContext";
 
 interface HeaderComponentProps {
     isLoggedIn: boolean;
@@ -16,7 +17,7 @@ function HeaderComponent(props: HeaderComponentProps) {
     const activeIndex = useMemo(() => props.activeIndex, [props.activeIndex]);
     const navigate = useNavigate();
     const { isAuthenticated } = useAuth0();
-
+    const { user } = useContext(UserContext);
     const getLoginOrLogout = useCallback((): JSX.Element => {
         if (isLoggedIn) {
             return (<Typography sx={{ minWidth: 100 }}>
@@ -49,6 +50,11 @@ function HeaderComponent(props: HeaderComponentProps) {
                     {isAuthenticated ? <Typography sx={{ marginLeft: "10px", minWidth: 100 }}>
                         <Link onClick={() => navigate("/laboratoryReports")} sx={{ ...LinkStyle, color: activeIndex === 2 ? Colors.DarkMossGreen : "black" }}>
                             Laboratory values
+                        </Link>
+                    </Typography> : <></>}
+                    {user?.userType === "ADMIN" ? <Typography sx={{ marginLeft: "10px", minWidth: 100 }}>
+                        <Link onClick={() => navigate("/users")} sx={{ ...LinkStyle, color: activeIndex === 3 ? Colors.DarkMossGreen : "black" }}>
+                            Users
                         </Link>
                     </Typography> : <></>}
                 </Box>

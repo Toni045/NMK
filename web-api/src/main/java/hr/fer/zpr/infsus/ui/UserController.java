@@ -43,7 +43,7 @@ public class UserController {
     @PutMapping("/{userId}/{typeId}")
     @PreAuthorize("hasAuthority('ADMIN')")
     @SecurityRequirement(name = "BearerAuthentication")
-    public ResponseEntity<UserDTO> updateUserRole(@PathVariable Integer userId, @RequestBody Integer newType){
-        return ResponseEntity.ok(userService.updateUser(userId,newType));
+    public ResponseEntity<UserDTO> updateUserRole(@PathVariable Integer userId, @PathVariable Integer typeId){
+        return ResponseEntity.ok(userService.updateUser(userId,typeId));
     }
 }

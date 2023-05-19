@@ -43,6 +43,12 @@ export interface UserDTO {
      * @memberof UserDTO
      */
     userType?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof UserDTO
+     */
+    userTypeId?: number;
 }
 
 /**
@@ -68,6 +74,7 @@ export function UserDTOFromJSONTyped(json: any, ignoreDiscriminator: boolean): U
         'name': !exists(json, 'name') ? undefined : json['name'],
         'email': !exists(json, 'email') ? undefined : json['email'],
         'userType': !exists(json, 'userType') ? undefined : json['userType'],
+        'userTypeId': !exists(json, 'userTypeId') ? undefined : json['userTypeId'],
     };
 }
 
@@ -84,6 +91,7 @@ export function UserDTOToJSON(value?: UserDTO | null): any {
         'name': value.name,
         'email': value.email,
         'userType': value.userType,
+        'userTypeId': value.userTypeId,
     };
 }
 

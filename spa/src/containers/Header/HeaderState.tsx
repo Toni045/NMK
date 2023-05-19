@@ -15,6 +15,8 @@ function HeaderState() {
             setActiveIndex(1);
         } else if (location.pathname.toLowerCase().includes("laboratoryvalues")) {
             setActiveIndex(2);
+        } else if (location.pathname.toLowerCase().includes("users")) {
+            setActiveIndex(3);
         }
     }, [location]);
     return (<HeaderComponent activeIndex={activeIndex} isLoggedIn={isAuthenticated} />)

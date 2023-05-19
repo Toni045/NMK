@@ -14,6 +14,7 @@ import LaboratoryValues from '../../pages/LaboratoryValues';
 import { UserContext } from '../../store/UserContext';
 import { ClientsContext } from '../../store/ClientsContext';
 import { UserDTO } from '../../api';
+import Users from '../../pages/Users';
 
 function App() {
   const { isLoading, isAuthenticated } = useAuth0();
@@ -40,6 +41,7 @@ function App() {
     }
     return <BrowserRouter>
       <Routes>
+        <Route path="/users" element={<Users />} />
         <Route path="/laboratoryValues/:laboratoryReportId" element={<LaboratoryValues />} />
         <Route path="/laboratoryReports" element={<LaboratoryReports />} />
         <Route path="/authenticated" element={<Authenticated />} />

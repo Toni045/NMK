@@ -15,6 +15,8 @@ public class UserDTO {
 
     private String userType;
 
+    private Integer userTypeId;
+
     public UserDTO() {
     }
 
@@ -48,5 +50,13 @@ public class UserDTO {
 
     public void setUserType(String userType) {
         this.userType = userType;
+    }
+
+    public Integer getUserTypeId() {
+        return userTypeId;
+    }
+
+    public void setUserTypeId(Integer userTypeId) {
+        this.userTypeId = userTypeId;
     }
 }

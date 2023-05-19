@@ -22,10 +22,97 @@ import {
     LaboratoryValueNameDropdownDTOToJSON,
 } from '../models';
 
+export interface CreateLaboratoryValueNameRequest {
+    body: string;
+}
+
+export interface DeleteLaboratoryValueNameRequest {
+    id: number;
+}
+
+export interface UpdateLaboratoryValueNameRequest {
+    id: number;
+    body: string;
+}
+
 /**
  * 
  */
 export class LaboratoryValueNameControllerApi extends runtime.BaseAPI {
+
+    /**
+     */
+    async createLaboratoryValueNameRaw(requestParameters: CreateLaboratoryValueNameRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<LaboratoryValueNameDropdownDTO>> {
+        if (requestParameters.body === null || requestParameters.body === undefined) {
+            throw new runtime.RequiredError('body','Required parameter requestParameters.body was null or undefined when calling createLaboratoryValueName.');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("BearerAuthentication", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        const response = await this.request({
+            path: `/LaboratoryValueName`,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: requestParameters.body as any,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => LaboratoryValueNameDropdownDTOFromJSON(jsonValue));
+    }
+
+    /**
+     */
+    async createLaboratoryValueName(requestParameters: CreateLaboratoryValueNameRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<LaboratoryValueNameDropdownDTO> {
+        const response = await this.createLaboratoryValueNameRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     */
+    async deleteLaboratoryValueNameRaw(requestParameters: DeleteLaboratoryValueNameRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters.id === null || requestParameters.id === undefined) {
+            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling deleteLaboratoryValueName.');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("BearerAuthentication", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        const response = await this.request({
+            path: `/LaboratoryValueName/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
+            method: 'DELETE',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     */
+    async deleteLaboratoryValueName(requestParameters: DeleteLaboratoryValueNameRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.deleteLaboratoryValueNameRaw(requestParameters, initOverrides);
+    }
 
     /**
      */
@@ -48,6 +135,49 @@ export class LaboratoryValueNameControllerApi extends runtime.BaseAPI {
      */
     async getLaboratoryValueNameDropdown(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<LaboratoryValueNameDropdownDTO>> {
         const response = await this.getLaboratoryValueNameDropdownRaw(initOverrides);
+        return await response.value();
+    }
+
+    /**
+     */
+    async updateLaboratoryValueNameRaw(requestParameters: UpdateLaboratoryValueNameRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<LaboratoryValueNameDropdownDTO>> {
+        if (requestParameters.id === null || requestParameters.id === undefined) {
+            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling updateLaboratoryValueName.');
+        }
+
+        if (requestParameters.body === null || requestParameters.body === undefined) {
+            throw new runtime.RequiredError('body','Required parameter requestParameters.body was null or undefined when calling updateLaboratoryValueName.');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("BearerAuthentication", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        const response = await this.request({
+            path: `/LaboratoryValueName/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
+            method: 'PUT',
+            headers: headerParameters,
+            query: queryParameters,
+            body: requestParameters.body as any,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => LaboratoryValueNameDropdownDTOFromJSON(jsonValue));
+    }
+
+    /**
+     */
+    async updateLaboratoryValueName(requestParameters: UpdateLaboratoryValueNameRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<LaboratoryValueNameDropdownDTO> {
+        const response = await this.updateLaboratoryValueNameRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

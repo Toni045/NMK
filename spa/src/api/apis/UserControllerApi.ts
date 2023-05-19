@@ -25,10 +25,47 @@ import {
     UserDropdownDTOToJSON,
 } from '../models';
 
+export interface UpdateUserRoleRequest {
+    userId: number;
+    typeId: number;
+}
+
 /**
  * 
  */
 export class UserControllerApi extends runtime.BaseAPI {
+
+    /**
+     */
+    async getAllUsersRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<UserDTO>>> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("BearerAuthentication", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        const response = await this.request({
+            path: `/User`,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(UserDTOFromJSON));
+    }
+
+    /**
+     */
+    async getAllUsers(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<UserDTO>> {
+        const response = await this.getAllUsersRaw(initOverrides);
+        return await response.value();
+    }
 
     /**
      */
@@ -83,6 +120,46 @@ export class UserControllerApi extends runtime.BaseAPI {
      */
     async getUsersAsDropdown(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<UserDropdownDTO>> {
         const response = await this.getUsersAsDropdownRaw(initOverrides);
+        return await response.value();
+    }
+
+    /**
+     */
+    async updateUserRoleRaw(requestParameters: UpdateUserRoleRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<UserDTO>> {
+        if (requestParameters.userId === null || requestParameters.userId === undefined) {
+            throw new runtime.RequiredError('userId','Required parameter requestParameters.userId was null or undefined when calling updateUserRole.');
+        }
+
+        if (requestParameters.typeId === null || requestParameters.typeId === undefined) {
+            throw new runtime.RequiredError('typeId','Required parameter requestParameters.typeId was null or undefined when calling updateUserRole.');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            const token = this.configuration.accessToken;
+            const tokenString = await token("BearerAuthentication", []);
+
+            if (tokenString) {
+                headerParameters["Authorization"] = `Bearer ${tokenString}`;
+            }
+        }
+        const response = await this.request({
+            path: `/User/{userId}/{typeId}`.replace(`{${"userId"}}`, encodeURIComponent(String(requestParameters.userId))).replace(`{${"typeId"}}`, encodeURIComponent(String(requestParameters.typeId))),
+            method: 'PUT',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => UserDTOFromJSON(jsonValue));
+    }
+
+    /**
+     */
+    async updateUserRole(requestParameters: UpdateUserRoleRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<UserDTO> {
+        const response = await this.updateUserRoleRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
