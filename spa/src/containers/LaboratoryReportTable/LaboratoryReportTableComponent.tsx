@@ -1,4 +1,20 @@
-import { Box, Button, FormControl, InputLabel, MenuItem, Paper, Select, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField } from "@mui/material";
+import {
+    Box,
+    Button,
+    FormControl,
+    FormHelperText,
+    InputLabel,
+    MenuItem,
+    Paper,
+    Select,
+    Table,
+    TableBody,
+    TableCell,
+    TableContainer,
+    TableHead,
+    TableRow,
+    TextField
+} from "@mui/material";
 import { LaboratoryReportDTO, LaboratoryReportRequest, UserDropdownDTO } from "../../api";
 import { useCallback, useContext } from "react";
 import Colors from "../../colors.json"
@@ -16,6 +32,7 @@ interface LaboratoryReportTableComponentProps {
     onUpdate: (index: number) => void,
     cancel: () => void,
     onRowClick: (index: number) => void
+    validationErrors: { [key: string]: string };
 }
 
 function LaboratoryReportTableComponent(props: LaboratoryReportTableComponentProps) {
@@ -61,6 +78,9 @@ function LaboratoryReportTableComponent(props: LaboratoryReportTableComponentPro
                             value={props.newLaboratoryReport.date?.toISOString().substring(0, 10)}
                             onChange={(event: any) => props.onChange({ ...props.newLaboratoryReport, date: new Date(event.target.value.toString()) })}
                             sx={{ marginRight: "5px" }} />
+                        {props.validationErrors.date && (
+                            <div style={{ color: "red" }}>{props.validationErrors.date}</div>
+                        )}
                     </TableCell>
                     <TableCell>
                         <TextField
@@ -70,9 +90,24 @@ function LaboratoryReportTableComponent(props: LaboratoryReportTableComponentPro
                             value={props.newLaboratoryReport.description}
                             onChange={(event: any) => props.onChange({ ...props.newLaboratoryReport, description: event.target.value })}
                             sx={{ marginRight: "5px" }} />
+                        {props.validationErrors.description && (
+                                <div style={{ color: "red" }}>{props.validationErrors.description}</div>
+                        )}
                     </TableCell>
+
                     <TableCell>
-                        {getUserDropdown((event: any) => props.onChange({ ...props.newLaboratoryReport, userId: event.target.value }))}
+                        {getUserDropdown((event: any) => {
+                            const selectedValue = event.target.value;
+                            props.onChange({ ...props.newLaboratoryReport, userId: selectedValue })
+                            if (selectedValue === undefined) {
+                                return <div style={{ color: "red" }}>{props.validationErrors.userId}</div>;
+                            } else {
+                                delete props.validationErrors.userId
+                            }
+                        })}
+                        {props.validationErrors.userId && (
+                            <div style={{ color: "red" }}>{props.validationErrors.userId}</div>
+                        )}
                     </TableCell>
                     <TableCell />
                     <TableCell>

@@ -15,6 +15,7 @@ function Login() {
 
     async function getPrincipal() {
         if (!isAuthenticated) {
+            console.log("OVDJE SAM");
             loginWithRedirect();
         } else {
             navigate("/");

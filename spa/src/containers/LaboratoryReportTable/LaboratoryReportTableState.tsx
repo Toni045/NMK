@@ -5,6 +5,7 @@ import LaboratoryReportTableComponent from "./LaboratoryReportTableComponent";
 import { Box, Button, FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../../store/UserContext";
+import * as Yup from 'yup';
 
 function LaboratoryReportTableState() {
     const [laboratoryReports, setLaboratoryReports] = useState<Array<LaboratoryReportDTO>>([]);
@@ -14,8 +15,40 @@ function LaboratoryReportTableState() {
     const [currentEditingIndex, setCurrentEditingIndex] = useState<number | undefined>(undefined);
     const { laboratoryReportClient, userClient } = useContext(ClientsContext);
     const { user } = useContext(UserContext);
+    const [errors, setErrors] = useState({});
+    const schema = Yup.object().shape({
+        date: Yup.date().required('Date is required'),
+        userId: Yup.string().required('User id is required'),
+        description: Yup.string()
+        .required("Description is required")
+        .min(10, "Description must be at least 10 characters")
+        .test("sql-injection", "Description contains invalid characters", (value) => {
+            // Disallowing specific special characters
+            const forbiddenCharactersRegex = /[<>!@#$%^&*]/;
+            if (forbiddenCharactersRegex.test(value)) {
+                return false;
+            }
+            // Ensuring the description starts with a letter
+            const startsWithLetterRegex = /^[A-Za-z]/;
+            if (!startsWithLetterRegex.test(value)) {
+                return false;
+            }
+            // Basic check for potential SQL injection characters
+            const forbiddenCharacters = /[-';]/;
+            return !forbiddenCharacters.test(value);
+        }).test("advanced-validation", "Description contains forbidden keywords", (value) => {
+                const forbiddenKeywords = ["drop", "truncate", "delete"];
+                for (const keyword of forbiddenKeywords) {
+                    if (value.toLowerCase().includes(keyword)) {
+                        return false;
+                    }
+                }
+                return true;
+            }),
+    });
 
     const navigate = useNavigate();
+
     function onUpdate(index: number) {
         setCurrentEditingIndex(index);
         setNewRow({
@@ -30,6 +63,7 @@ function LaboratoryReportTableState() {
         setIsNewRow(false);
         setNewRow(undefined);
         setCurrentEditingIndex(undefined);
+        setErrors({});
     }
 
     async function deleteRow(id: number) {
@@ -43,15 +77,28 @@ function LaboratoryReportTableState() {
     }
 
     async function submitNewRow() {
-        var newRowRequest: LaboratoryReportRequest = { ...newRow, date: new Date(newRow?.date?.toString()!) }
-        if (newRow?.id !== undefined) {
-            laboratoryReports[currentEditingIndex!] = await laboratoryReportClient.updateReport({ laboratoryReportRequest: newRowRequest });
-        } else {
-            laboratoryReports.push(await laboratoryReportClient.createReport({ laboratoryReportRequest: newRowRequest }));
+        try {
+            var newRowRequest: LaboratoryReportRequest = { ...newRow, date: new Date(newRow?.date?.toString()!) }
+            await schema.validate(newRow, {abortEarly: false})
+            if (newRow?.id !== undefined) {
+                laboratoryReports[currentEditingIndex!] = await laboratoryReportClient.updateReport({ laboratoryReportRequest: newRowRequest });
+            } else {
+                laboratoryReports.push(await laboratoryReportClient.createReport({ laboratoryReportRequest: newRowRequest }));
+            }
+            cancel()
+            setLaboratoryReports([...laboratoryReports]);
+        } catch (err) {
+            if (err instanceof Yup.ValidationError) {
+                const validationErrors: { [key: string]: string } = {};
+                err.inner.forEach((error) => {
+                    if (error.path) {
+                        validationErrors[error.path] = error.message;
+                    }
+                });
+                setErrors(validationErrors);
+            }
         }
-        cancel()
-        setLaboratoryReports([...laboratoryReports]);
-    }
+    };
 
     async function getParams() {
         if (user === undefined) {
@@ -108,7 +155,9 @@ function LaboratoryReportTableState() {
             delete={deleteRow}
             onUpdate={onUpdate}
             cancel={cancel}
-            onRowClick={onRowClick} />
+            onRowClick={onRowClick}
+            validationErrors={errors}
+        />
         {user?.userType !== "USER" ? <Button variant="contained" onClick={() => {
             if (isNewRow) {
                 return;
