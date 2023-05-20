@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -41,7 +42,7 @@ public class LaboratoryReportController {
     @PutMapping
     @PreAuthorize("hasAnyAuthority('ADMIN','DOCTOR')")
     @SecurityRequirement(name = "BearerAuthentication")
-    public ResponseEntity<LaboratoryReportDTO> updateReport(@RequestBody LaboratoryReportRequest updateRequest) {
+    public ResponseEntity<LaboratoryReportDTO> updateReport(@Valid @RequestBody LaboratoryReportRequest updateRequest) {
         LaboratoryReportDTO result = laboratoryReportService.updateLaboratoryReport(updateRequest);
         if (result == null) {
             return ResponseEntity.badRequest().build();
@@ -52,7 +53,7 @@ public class LaboratoryReportController {
     @PostMapping
     @PreAuthorize("hasAnyAuthority('ADMIN','DOCTOR')")
     @SecurityRequirement(name = "BearerAuthentication")
-    public ResponseEntity<LaboratoryReportDTO> createReport(@RequestBody LaboratoryReportRequest updateRequest) {
+    public ResponseEntity<LaboratoryReportDTO> createReport(@Valid @RequestBody LaboratoryReportRequest updateRequest) {
         LaboratoryReportDTO result = laboratoryReportService.createLaboratoryReport(updateRequest);
         if (result == null) {
             return ResponseEntity.badRequest().build();

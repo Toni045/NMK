@@ -1,14 +1,22 @@
 package hr.fer.zpr.infsus.domain.request;
 
+import hr.fer.zpr.infsus.domain.validator.ComplexValidation;
+
+import javax.validation.constraints.Past;
+import javax.validation.constraints.Positive;
 import java.time.LocalDate;
 
 public class LaboratoryReportRequest {
+    @Positive(message = "ID must be a positive value")
     private Integer id;
 
+    @Past(message = "Event date must be in the past")
     private LocalDate date;
 
+    @ComplexValidation
     private String description;
 
+    @Positive(message = "ID must be a positive value")
     private Integer userId;
 
     public LaboratoryReportRequest() {

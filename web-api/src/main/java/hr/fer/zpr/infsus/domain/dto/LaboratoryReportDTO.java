@@ -1,19 +1,32 @@
 package hr.fer.zpr.infsus.domain.dto;
 
+import hr.fer.zpr.infsus.domain.validator.ComplexValidation;
+
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Past;
+import javax.validation.constraints.Positive;
 import java.time.LocalDate;
 import java.util.Objects;
 
 public class LaboratoryReportDTO {
+    @Positive(message = "ID must be a positive value")
     private Integer id;
 
+    @Past(message = "Event date must be in the past")
     private LocalDate date;
 
+    @ComplexValidation
     private String description;
 
+    @NotBlank(message = "Email is required")
+    @Email(message = "Invalid email format")
     private String userEmail;
 
+    @NotBlank(message = "Name is required")
     private String userName;
 
+    @Positive(message = "ID must be a positive value")
     private Integer userId;
 
     public LaboratoryReportDTO() {
