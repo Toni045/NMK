@@ -1,11 +1,5 @@
 package hr.fer.zpr.infsus.domain.dto;
 
-import hr.fer.zpr.infsus.domain.JPAEntities.Department;
-import hr.fer.zpr.infsus.domain.JPAEntities.UserType;
-import jakarta.persistence.Column;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-
 public class UserDTO {
     private Integer id;
 

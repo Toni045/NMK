@@ -31,8 +31,8 @@ public class LaboratoryReportController {
     @PreAuthorize("isAuthenticated()")
     @SecurityRequirement(name = "BearerAuthentication")
     public ResponseEntity<LaboratoryReportDTO> getReportById(@PathVariable Integer id) {
-        LaboratoryReportDTO result=laboratoryReportService.getReportById(id);
-        if(result==null){
+        LaboratoryReportDTO result = laboratoryReportService.getReportById(id);
+        if (result == null) {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(result);
@@ -72,8 +72,8 @@ public class LaboratoryReportController {
     @PreAuthorize("hasAnyAuthority('ADMIN','DOCTOR')")
     @SecurityRequirement(name = "BearerAuthentication")
     public ResponseEntity<List<LaboratoryReportDTO>> getAllReportsForUser(@PathVariable int userId) {
-        List<LaboratoryReportDTO> result=laboratoryReportService.getAllReportsForUser(userId);
-        if(result==null){
+        List<LaboratoryReportDTO> result = laboratoryReportService.getAllReportsForUser(userId);
+        if (result == null) {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(result);
@@ -83,8 +83,8 @@ public class LaboratoryReportController {
     @PreAuthorize("isAuthenticated()")
     @SecurityRequirement(name = "BearerAuthentication")
     public ResponseEntity<List<LaboratoryReportDTO>> getMyReports() {
-        List<LaboratoryReportDTO> result=laboratoryReportService.getMyReports();
-        if(result==null){
+        List<LaboratoryReportDTO> result = laboratoryReportService.getMyReports();
+        if (result == null) {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(result);

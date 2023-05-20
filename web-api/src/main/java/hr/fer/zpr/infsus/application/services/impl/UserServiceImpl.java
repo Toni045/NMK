@@ -20,6 +20,7 @@ public class UserServiceImpl implements IUserService {
     private final IUserMapper userMapper;
     private final UserRepository userRepository;
     private final UserTypeRepository userTypeRepository;
+
     public UserServiceImpl(IUserMapper userMapper, UserRepository userRepository, UserTypeRepository userTypeRepository) {
         this.userMapper = userMapper;
         this.userRepository = userRepository;
@@ -33,13 +34,13 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public UserDTO getCurrentUser() {
-        Object authenticatedUser= SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        if(authenticatedUser instanceof String){
+        Object authenticatedUser = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (authenticatedUser instanceof String) {
             return null;
         }
-        UserDetails userDetails=(UserDetails) authenticatedUser;
-        Optional<User> user=userRepository.findByEmail(userDetails.getUsername());
-        if(user.isEmpty()){
+        UserDetails userDetails = (UserDetails) authenticatedUser;
+        Optional<User> user = userRepository.findByEmail(userDetails.getUsername());
+        if (user.isEmpty()) {
             return null;
         }
         return userMapper.userToUserDTO(user.get());
@@ -52,13 +53,13 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public UserDTO updateUser(Integer userId, Integer newType) {
-        Optional<User> optionalUser=userRepository.findById(userId);
-        if(optionalUser.isEmpty()){
+        Optional<User> optionalUser = userRepository.findById(userId);
+        if (optionalUser.isEmpty()) {
             return null;
         }
-        User user=optionalUser.get();
-        Optional<UserType> optionalUserType=userTypeRepository.findById(newType);
-        if(optionalUserType.isEmpty()){
+        User user = optionalUser.get();
+        Optional<UserType> optionalUserType = userTypeRepository.findById(newType);
+        if (optionalUserType.isEmpty()) {
             return null;
         }
         user.setUserType(optionalUserType.get());

@@ -27,11 +27,11 @@ public class LaboratoryValueNameService implements ILaboratoryValueNameService {
 
     @Override
     public LaboratoryValueNameDropdownDTO updateLaboratoryValueName(Integer id, String laboratoryValueName) {
-        Optional<LaboratoryValueName> optionalLaboratoryValueName=laboratoryValueNameRepository.findById(id);
-        if(optionalLaboratoryValueName.isEmpty()){
+        Optional<LaboratoryValueName> optionalLaboratoryValueName = laboratoryValueNameRepository.findById(id);
+        if (optionalLaboratoryValueName.isEmpty()) {
             return null;
         }
-        LaboratoryValueName laboratoryValueName1=optionalLaboratoryValueName.get();
+        LaboratoryValueName laboratoryValueName1 = optionalLaboratoryValueName.get();
         laboratoryValueName1.setName(laboratoryValueName);
         return laboratoryValueNameMapper.laboratoryValueNameToDropdownDTO(laboratoryValueNameRepository.save(laboratoryValueName1));
     }
@@ -43,7 +43,7 @@ public class LaboratoryValueNameService implements ILaboratoryValueNameService {
 
     @Override
     public LaboratoryValueNameDropdownDTO createLaboratoryValueName(String name) {
-        LaboratoryValueName newLaboratoryValueName=new LaboratoryValueName();
+        LaboratoryValueName newLaboratoryValueName = new LaboratoryValueName();
         newLaboratoryValueName.setName(name);
         return laboratoryValueNameMapper.laboratoryValueNameToDropdownDTO(laboratoryValueNameRepository.save(newLaboratoryValueName));
     }

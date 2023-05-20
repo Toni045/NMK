@@ -41,17 +41,17 @@ public class LaboratoryValuesServiceImpl implements ILaboratoryValuesService {
 
     @Override
     public LaboratoryValueDTO updateLaboratoryValue(Integer id, LaboratoryValueRequest request) {
-        Optional<LaboratoryValues> optionalLaboratoryValue=laboratoryValuesRepository.findById(id);
-        if(optionalLaboratoryValue.isEmpty()){
+        Optional<LaboratoryValues> optionalLaboratoryValue = laboratoryValuesRepository.findById(id);
+        if (optionalLaboratoryValue.isEmpty()) {
             return null;
         }
-        LaboratoryValues laboratoryValue=optionalLaboratoryValue.get();
-        if(request.getValue()!=null){
+        LaboratoryValues laboratoryValue = optionalLaboratoryValue.get();
+        if (request.getValue() != null) {
             laboratoryValue.setValue(request.getValue());
         }
-        if(request.getLaboratoryValueNameId()!=null){
-            Optional<LaboratoryValueName> sif=laboratoryValueNameRepository.findById(request.getLaboratoryValueNameId());
-            if(sif.isEmpty()){
+        if (request.getLaboratoryValueNameId() != null) {
+            Optional<LaboratoryValueName> sif = laboratoryValueNameRepository.findById(request.getLaboratoryValueNameId());
+            if (sif.isEmpty()) {
                 return null;
             }
             laboratoryValue.setLaboratoryValueName(sif.get());
@@ -62,18 +62,18 @@ public class LaboratoryValuesServiceImpl implements ILaboratoryValuesService {
 
     @Override
     public LaboratoryValueDTO createNewLaboratoryValue(Integer laboratoryReportId, LaboratoryValueRequest request) {
-        if(request.getLaboratoryValueNameId()==null || request.getValue()==null){
+        if (request.getLaboratoryValueNameId() == null || request.getValue() == null) {
             return null;
         }
-        Optional<LaboratoryReport> optionalLaboratoryReport=laboratoryReportRepository.findById(laboratoryReportId);
-        if(optionalLaboratoryReport.isEmpty()) {
+        Optional<LaboratoryReport> optionalLaboratoryReport = laboratoryReportRepository.findById(laboratoryReportId);
+        if (optionalLaboratoryReport.isEmpty()) {
             return null;
         }
-        Optional<LaboratoryValueName> optionalLaboratoryValueName=laboratoryValueNameRepository.findById(request.getLaboratoryValueNameId());
-        if(optionalLaboratoryValueName.isEmpty()) {
+        Optional<LaboratoryValueName> optionalLaboratoryValueName = laboratoryValueNameRepository.findById(request.getLaboratoryValueNameId());
+        if (optionalLaboratoryValueName.isEmpty()) {
             return null;
         }
-        LaboratoryValues laboratoryValue=new LaboratoryValues();
+        LaboratoryValues laboratoryValue = new LaboratoryValues();
         laboratoryValue.setLaboratoryReport(optionalLaboratoryReport.get());
         laboratoryValue.setValue(request.getValue());
         laboratoryValue.setLaboratoryValueName(optionalLaboratoryValueName.get());
