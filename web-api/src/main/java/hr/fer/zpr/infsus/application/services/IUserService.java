@@ -1,6 +1,5 @@
 package hr.fer.zpr.infsus.application.services;
 
-import hr.fer.zpr.infsus.domain.JPAEntities.EUserType;
 import hr.fer.zpr.infsus.domain.dto.UserDTO;
 import hr.fer.zpr.infsus.domain.dto.UserDropdownDTO;
 

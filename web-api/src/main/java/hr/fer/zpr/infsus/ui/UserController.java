@@ -1,7 +1,6 @@
 package hr.fer.zpr.infsus.ui;
 
 import hr.fer.zpr.infsus.application.services.IUserService;
-import hr.fer.zpr.infsus.domain.JPAEntities.EUserType;
 import hr.fer.zpr.infsus.domain.dto.UserDTO;
 import hr.fer.zpr.infsus.domain.dto.UserDropdownDTO;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
@@ -29,21 +28,21 @@ public class UserController {
     @GetMapping("/current")
     @PreAuthorize("isAuthenticated()")
     @SecurityRequirement(name = "BearerAuthentication")
-    public ResponseEntity<UserDTO> getCurrentUser(){
+    public ResponseEntity<UserDTO> getCurrentUser() {
         return ResponseEntity.ok(userService.getCurrentUser());
     }
 
     @GetMapping
     @PreAuthorize("hasAuthority('ADMIN')")
     @SecurityRequirement(name = "BearerAuthentication")
-    public ResponseEntity<List<UserDTO>> getAllUsers(){
+    public ResponseEntity<List<UserDTO>> getAllUsers() {
         return ResponseEntity.ok(userService.getAllUsers());
     }
 
     @PutMapping("/{userId}/{typeId}")
     @PreAuthorize("hasAuthority('ADMIN')")
     @SecurityRequirement(name = "BearerAuthentication")
-    public ResponseEntity<UserDTO> updateUserRole(@PathVariable Integer userId, @PathVariable Integer typeId){
-        return ResponseEntity.ok(userService.updateUser(userId,typeId));
+    public ResponseEntity<UserDTO> updateUserRole(@PathVariable Integer userId, @PathVariable Integer typeId) {
+        return ResponseEntity.ok(userService.updateUser(userId, typeId));
     }
 }

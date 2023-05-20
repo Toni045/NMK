@@ -91,12 +91,12 @@ public class LaboratoryReportServiceImpl implements ILaboratoryReportService {
 
     @Override
     public LaboratoryReportDTO getReportById(Integer id) {
-        UserDTO user=userService.getCurrentUser();
-        Optional<LaboratoryReport> optionalLaboratoryReport=laboratoryReportRepository.findById(id);
-        if(optionalLaboratoryReport.isEmpty()){
+        UserDTO user = userService.getCurrentUser();
+        Optional<LaboratoryReport> optionalLaboratoryReport = laboratoryReportRepository.findById(id);
+        if (optionalLaboratoryReport.isEmpty()) {
             return null;
         }
-        if(Objects.equals(user.getUserType(), EUserType.USER.name()) && !Objects.equals(user.getId(), optionalLaboratoryReport.get().getUser().getId())){
+        if (Objects.equals(user.getUserType(), EUserType.USER.name()) && !Objects.equals(user.getId(), optionalLaboratoryReport.get().getUser().getId())) {
             return null;
         }
         return laboratoryReportMapper.laboratoryReportToLaboratoryReportDTO(optionalLaboratoryReport.get());
@@ -104,7 +104,7 @@ public class LaboratoryReportServiceImpl implements ILaboratoryReportService {
 
     @Override
     public List<LaboratoryReportDTO> getMyReports() {
-        UserDTO user=userService.getCurrentUser();
+        UserDTO user = userService.getCurrentUser();
         return laboratoryReportMapper.laboratoryReportsToLaboratoryReportDTOs(laboratoryReportRepository.findByUser_Id(user.getId()));
     }
 }

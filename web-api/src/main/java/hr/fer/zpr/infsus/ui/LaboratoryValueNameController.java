@@ -20,21 +20,21 @@ public class LaboratoryValueNameController {
     }
 
     @GetMapping("/dropdown")
-    public ResponseEntity<List<LaboratoryValueNameDropdownDTO>> getLaboratoryValueNameDropdown(){
+    public ResponseEntity<List<LaboratoryValueNameDropdownDTO>> getLaboratoryValueNameDropdown() {
         return ResponseEntity.ok(laboratoryValueNameService.getLaboratoryValueNameDropdown());
     }
 
     @PutMapping("/{id}")
     @PreAuthorize("hasAnyAuthority('ADMIN','DOCTOR')")
     @SecurityRequirement(name = "BearerAuthentication")
-    public ResponseEntity<LaboratoryValueNameDropdownDTO> updateLaboratoryValueName(@PathVariable Integer id,@RequestBody String laboratoryValueName){
-        return ResponseEntity.ok(laboratoryValueNameService.updateLaboratoryValueName(id,laboratoryValueName));
+    public ResponseEntity<LaboratoryValueNameDropdownDTO> updateLaboratoryValueName(@PathVariable Integer id, @RequestBody String laboratoryValueName) {
+        return ResponseEntity.ok(laboratoryValueNameService.updateLaboratoryValueName(id, laboratoryValueName));
     }
 
     @DeleteMapping("/{id}")
     @PreAuthorize("hasAnyAuthority('ADMIN','DOCTOR')")
     @SecurityRequirement(name = "BearerAuthentication")
-    public ResponseEntity<Void> deleteLaboratoryValueName(@PathVariable Integer id){
+    public ResponseEntity<Void> deleteLaboratoryValueName(@PathVariable Integer id) {
         laboratoryValueNameService.deleteLaboratoryValueName(id);
         return ResponseEntity.noContent().build();
     }
@@ -42,7 +42,7 @@ public class LaboratoryValueNameController {
     @PostMapping
     @PreAuthorize("hasAnyAuthority('ADMIN','DOCTOR')")
     @SecurityRequirement(name = "BearerAuthentication")
-    public ResponseEntity<LaboratoryValueNameDropdownDTO> createLaboratoryValueName(@RequestBody String name){
+    public ResponseEntity<LaboratoryValueNameDropdownDTO> createLaboratoryValueName(@RequestBody String name) {
 
         return ResponseEntity.ok(laboratoryValueNameService.createLaboratoryValueName(name));
     }
