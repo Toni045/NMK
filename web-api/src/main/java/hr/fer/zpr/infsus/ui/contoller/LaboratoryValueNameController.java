@@ -1,4 +1,4 @@
-package hr.fer.zpr.infsus.ui;
+package hr.fer.zpr.infsus.ui.contoller;
 
 import hr.fer.zpr.infsus.application.services.ILaboratoryValueNameService;
 import hr.fer.zpr.infsus.domain.dto.LaboratoryValueNameDropdownDTO;

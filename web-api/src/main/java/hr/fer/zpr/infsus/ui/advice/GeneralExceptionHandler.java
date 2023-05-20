@@ -1,4 +1,4 @@
-package hr.fer.zpr.infsus.advice;
+package hr.fer.zpr.infsus.ui.advice;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.FieldError;

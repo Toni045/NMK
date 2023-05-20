@@ -1,4 +1,4 @@
-package hr.fer.zpr.infsus.ui;
+package hr.fer.zpr.infsus.ui.contoller;
 
 import hr.fer.zpr.infsus.application.services.IUserService;
 import hr.fer.zpr.infsus.domain.dto.UserDTO;

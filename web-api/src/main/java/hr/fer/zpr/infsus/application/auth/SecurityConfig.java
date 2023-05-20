@@ -1,6 +1,7 @@
 package hr.fer.zpr.infsus.application.auth;
 
 import hr.fer.zpr.infsus.application.filters.UserDetailsFilter;
+import hr.fer.zpr.infsus.domain.validator.AudienceValidator;
 import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
 import io.swagger.v3.oas.annotations.security.SecurityScheme;
 import org.springframework.beans.factory.annotation.Value;
