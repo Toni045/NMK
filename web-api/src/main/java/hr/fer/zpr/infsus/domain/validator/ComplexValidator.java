@@ -11,8 +11,10 @@ public class ComplexValidator implements ConstraintValidator<ComplexValidation, 
     );
     private static final int MIN_DESCRIPTION_LENGTH = 10;
     private static final Pattern VALID_DESCRIPTION_PATTERN = Pattern.compile("[A-Za-z0-9]+");
+
     @Override
-    public void initialize(ComplexValidation constraintAnnotation) {}
+    public void initialize(ComplexValidation constraintAnnotation) {
+    }
 
     @Override
     public boolean isValid(String value, ConstraintValidatorContext context) {

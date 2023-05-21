@@ -14,6 +14,8 @@ import java.lang.annotation.Target;
 @Constraint(validatedBy = ComplexValidator.class)
 public @interface ComplexValidation {
     String message() default "Complex validation failed";
+
     Class<?>[] groups() default {};
+
     Class<? extends Payload>[] payload() default {};
 }

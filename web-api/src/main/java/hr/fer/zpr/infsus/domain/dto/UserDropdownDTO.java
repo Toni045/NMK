@@ -7,6 +7,11 @@ public class UserDropdownDTO {
     public UserDropdownDTO() {
     }
 
+    public UserDropdownDTO(Integer id, String email) {
+        this.id = id;
+        this.email = email;
+    }
+
     public Integer getId() {
         return id;
     }
